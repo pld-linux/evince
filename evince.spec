@@ -5,17 +5,21 @@ Version:	0.1.5
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/0.1/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.1/%{name}-%{version}.tar.bz2
 # Source0-md5:	265603f6dead768a2c87a752fdfeec43
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
 BuildRequires:	automake
+BuildRequires:	ghostscript
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 2.6.2
+BuildRequires:	intltool
 BuildRequires:	libglade2-devel
 BuildRequires:	libgnomeprintui-devel
 BuildRequires:	libgnomeui-devel >= 2.8.0
+BuildRequires:	libstdc++-devel
+BuildRequires:	pkgconfig
 Requires(post):	GConf2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -40,7 +44,6 @@ cp -f /usr/share/automake/config.sub .
 %configure \
 	--disable-schemas-install \
 	--enable-a4-paper
-
 %{__make}
 
 %install
