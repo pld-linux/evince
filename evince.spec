@@ -15,7 +15,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	ghostscript
 BuildRequires:	gnome-vfs2-devel
-BuildRequires:	gtk+2-devel >= 2.6.2
+BuildRequires:	gtk+2-devel >= 2:2.6.2
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel
 BuildRequires:	libgnomeprintui-devel
