@@ -10,6 +10,7 @@ Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/0.1/%{name}-%{version}.ta
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
+BuildRequires:	automake
 BuildRequires:	gnome-vfs2-devel
 BuildRequires:	gtk+2-devel >= 2.6.2
 BuildRequires:	libglade2-devel
@@ -35,6 +36,7 @@ xpdf jedn± prost± aplikacj±.
 %patch0 -p1
 
 %build
+cp -f /usr/share/automake/config.sub .
 %configure \
 	--disable-schemas-install \
 	--enable-a4-paper
