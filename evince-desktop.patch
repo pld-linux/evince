@@ -1,0 +1,10 @@
+diff -urN evince-0.1.4.orig/data/evince.desktop.in evince-0.1.4/data/evince.desktop.in
+--- evince-0.1.4.orig/data/evince.desktop.in	2005-02-10 22:40:48.504808344 +0100
++++ evince-0.1.4/data/evince.desktop.in	2005-02-10 22:43:35.877363848 +0100
+@@ -12,5 +12,5 @@
+ X-GNOME-Bugzilla-Bugzilla=GNOME
+ X-GNOME-Bugzilla-Product=evince
+ X-GNOME-Bugzilla-Component=General
+-Categories=GNOME;Application;Graphics;VectorGraphics;Viewer;
++Categories=GTK;GNOME;Graphics;Viewer;
+ MimeType=application/pdf;application/postscript
