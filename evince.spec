@@ -24,7 +24,7 @@ multiple document viewers that exist on the GNOME Desktop, like ggv,
 gpdf, and xpdf with a single simple application.
 
 %description -l pl
-Evince jest przegl±dark± dokumentu w wielu formatach takich jak pdf,
+Evince jest przegl±dark± dokumentów w wielu formatach takich jak pdf,
 postscript i wielu innych. W zamierzeniach program ma zast±piæ
 przegl±darki dokumentów dla ¶rodowiska GNOME, takie jak ggv, gpdf i
 xpdf jedn± prost± aplikacj±.
