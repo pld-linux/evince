@@ -11,6 +11,7 @@ Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
+BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	ghostscript
 BuildRequires:	gnome-vfs2-devel
