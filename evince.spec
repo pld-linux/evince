@@ -8,6 +8,7 @@ Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.1/%{name}-%{version}.tar.bz2
 # Source0-md5:	69056586d0db702c5476712a86627f57
 Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel
 BuildRequires:	automake
@@ -39,9 +40,13 @@ xpdf jedn± prost± aplikacj±.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
-cp -f /usr/share/automake/config.sub .
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
 %configure \
 	--disable-schemas-install \
 	--enable-a4-paper
