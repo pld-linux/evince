@@ -2,7 +2,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.2.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.2/%{name}-%{version}.tar.bz2
@@ -15,7 +15,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	ghostscript
 BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
-BuildRequires:	gtk+2-devel >= 2:2.6.3
+BuildRequires:	gtk+2-devel >= 2:2.6.4
 BuildRequires:	intltool
 BuildRequires:	libglade2-devel >= 1:2.5.1
 BuildRequires:	libgnomeprintui-devel >= 2.10.0
@@ -23,7 +23,9 @@ BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-devel >= 0.2.0
-Requires(post):	GConf2
+BuildRequires:	rpmbuild(macros) >= 1.196
+Requires(post,preun):	GConf2
+Requires(post,postun):	desktop-file-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -68,12 +70,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 umask 022
-%gconf_schema_install
-[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1 ||:
+%gconf_schema_install /etc/gconf/schemas/evince-thumbnailer.schemas
+%gconf_schema_install /etc/gconf/schemas/evince.schemas
+/usr/bin/update-desktop-database
+
+%preun
+if [ $1 = 0 ]; then
+	%gconf_schema_uninstall /etc/gconf/schemas/evince-thumbnailer.schemas
+	%gconf_schema_uninstall /etc/gconf/schemas/evince.schemas
+fi
 
 %postun
-umask 022
-[ ! -x /usr/bin/update-desktop-database ] || /usr/bin/update-desktop-database >/dev/null 2>&1
+if [ $1 = 0 ]; then
+	umask 022
+	/usr/bin/update-desktop-database
+fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
