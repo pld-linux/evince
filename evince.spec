@@ -23,7 +23,7 @@ BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-devel >= 0.2.0
-BuildRequires:	rpmbuild(macros) >= 1.196
+BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -69,22 +69,16 @@ rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 rm -rf $RPM_BUILD_ROOT
 
 %post
-umask 022
-%gconf_schema_install /etc/gconf/schemas/evince-thumbnailer.schemas
-%gconf_schema_install /etc/gconf/schemas/evince.schemas
-/usr/bin/update-desktop-database
+%gconf_schema_install evince-thumbnailer.schemas
+%gconf_schema_install evince.schemas
+%update_desktop_database_post
 
 %preun
-if [ $1 = 0 ]; then
-	%gconf_schema_uninstall /etc/gconf/schemas/evince-thumbnailer.schemas
-	%gconf_schema_uninstall /etc/gconf/schemas/evince.schemas
-fi
+%gconf_schema_uninstall evince-thumbnailer.schemas
+%gconf_schema_uninstall schemas/evince.schemas
 
 %postun
-if [ $1 = 0 ]; then
-	umask 022
-	/usr/bin/update-desktop-database
-fi
+%update_desktop_database_postun
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
