@@ -1,12 +1,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
-Version:	0.2.0
-Release:	2
+Version:	0.2.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	ad7bd39d29c66d34e37b9da311d5e94d
+# Source0-md5:	c1075c4ea2d5dc283dcc2e6c7658fe98
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -22,10 +22,11 @@ BuildRequires:	libgnomeprintui-devel >= 2.10.0
 BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-devel >= 0.2.0
+BuildRequires:	poppler-glib-devel >= 0.3.0-2
 BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	scrollkeeper
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -63,7 +64,7 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 
-%find_lang %{name}
+%find_lang %{name} --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,13 +73,15 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_install evince-thumbnailer.schemas
 %gconf_schema_install evince.schemas
 %update_desktop_database_post
+%scrollkeeper_update_post
 
 %preun
 %gconf_schema_uninstall evince-thumbnailer.schemas
-%gconf_schema_uninstall schemas/evince.schemas
+%gconf_schema_uninstall evince.schemas
 
 %postun
 %update_desktop_database_postun
+%scrollkeeper_update_postun
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -87,3 +90,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/*.schemas
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
+%{_omf_dest_dir}/evince
