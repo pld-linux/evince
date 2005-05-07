@@ -1,12 +1,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
-Version:	0.2.1
+Version:	0.3.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	c1075c4ea2d5dc283dcc2e6c7658fe98
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.3/%{name}-%{version}.tar.bz2
+# Source0-md5:	33e760db0295b393864b969f3b62a52a
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -22,7 +22,7 @@ BuildRequires:	libgnomeprintui-devel >= 2.10.0
 BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.3.0-2
+BuildRequires:	poppler-glib-devel >= 0.3.1
 BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
