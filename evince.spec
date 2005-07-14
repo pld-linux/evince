@@ -13,7 +13,8 @@ URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	djvulibre-devel
+# requires djvulibre from cvs (no released yet)
+#BuildRequires:	djvulibre-devel
 BuildRequires:	ghostscript
 BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
 BuildRequires:	gtk+2-devel >= 2:2.6.4
