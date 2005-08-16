@@ -1,21 +1,22 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
-Version:	0.3.2
-Release:	1
+Version:	0.3.3
+Release:	0.01
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	b789edb4cae1f22b6e6d0b34b125c778
+# Source0-md5:	9f2d015d7beab6ca43b07414a9effc53
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-# requires djvulibre from cvs (no released yet)
-#BuildRequires:	djvulibre-devel
+BuildRequires:	dbus-glib-devel >= 0.33
+BuildRequires:	djvulibre-devel >= 3.5.15
 BuildRequires:	ghostscript
+BuildRequires:	gnome-doc-utils >= 0.3.2
 BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
 BuildRequires:	gtk+2-devel >= 2:2.6.4
 BuildRequires:	intltool
@@ -24,8 +25,9 @@ BuildRequires:	libglade2-devel >= 1:2.5.1
 BuildRequires:	libgnomeprintui-devel >= 2.10.0
 BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
+BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.3.1
+BuildRequires:	poppler-glib-devel >= 0.3.3
 BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
@@ -50,16 +52,19 @@ xpdf jedn± prost± aplikacj±.
 %patch1 -p1
 
 %build
+gnome-doc-prepare --copy --force
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
 %configure \
 	--disable-schemas-install \
-	--enable-a4-paper \
 	--enable-djvu \
-	--enable-dvi
-
+	--enable-dvi \
+	--enable-nautilus \
+	--enable-pixbuf \
+	--enable-t1lib \
+	--enable-tiff
 %{__make}
 
 %install
