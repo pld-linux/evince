@@ -27,7 +27,7 @@ BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
 BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.3.3
+BuildRequires:	poppler-glib-devel >= 0.4.0
 BuildRequires:	rpmbuild(macros) >= 1.197
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
