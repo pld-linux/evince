@@ -2,18 +2,19 @@ Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.3.4
-Release:	0.1
+Release:	0.2
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.3/%{name}-%{version}.tar.bz2
 # Source0-md5:	2c3177f60e6d8ed0b73168ebf9f726a5
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
+Patch2:		%{name}-disable_dbus.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	dbus-glib-devel >= 0.33
+#BuildRequires:	dbus-glib-devel >= 0.33
 BuildRequires:	djvulibre-devel >= 3.5.15
 BuildRequires:	ghostscript
 BuildRequires:	gnome-doc-utils >= 0.3.2
@@ -63,6 +64,7 @@ Rozszerzenie Evince dla Nautilusa.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 gnome-doc-prepare --copy --force
