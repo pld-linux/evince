@@ -1,12 +1,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
-Version:	0.3.3
-Release:	0.01
+Version:	0.3.4
+Release:	0.1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	9f2d015d7beab6ca43b07414a9effc53
+# Source0-md5:	2c3177f60e6d8ed0b73168ebf9f726a5
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -46,6 +46,19 @@ postscript i wielu innych. W zamierzeniach program ma zast±piæ
 przegl±darki dokumentów dla ¶rodowiska GNOME, takie jak ggv, gpdf i
 xpdf jedn± prost± aplikacj±.
 
+%package -n nautilus-extension-evince
+Summary:	Evince extension for Nautilus
+Summary(pl):	Rozszerzenie Evince dla Nautilusa
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+Requires:	nautilus
+
+%description -n nautilus-extension-evince
+Evince extension for Nautilus.
+
+%description -n nautilus-extension-evince -l pl
+Rozszerzenie Evince dla Nautilusa.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -58,6 +71,7 @@ gnome-doc-prepare --copy --force
 %{__autoheader}
 %{__automake}
 %configure \
+	--disable-static \
 	--disable-schemas-install \
 	--enable-djvu \
 	--enable-dvi \
@@ -74,6 +88,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
+rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 
 %find_lang %{name} --with-gnome
 
@@ -81,12 +96,16 @@ rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 rm -rf $RPM_BUILD_ROOT
 
 %post
+%gconf_schema_install evince-thumbnailer-djvu.schemas
+%gconf_schema_install evince-thumbnailer-dvi.schemas
 %gconf_schema_install evince-thumbnailer.schemas
 %gconf_schema_install evince.schemas
 %update_desktop_database_post
 %scrollkeeper_update_post
 
 %preun
+%gconf_schema_uninstall evince-thumbnailer-djvu.schemas
+%gconf_schema_uninstall evince-thumbnailer-dvi.schemas
 %gconf_schema_uninstall evince-thumbnailer.schemas
 %gconf_schema_uninstall evince.schemas
 
@@ -98,7 +117,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/*
-%{_sysconfdir}/gconf/schemas/*.schemas
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
+%{_sysconfdir}/gconf/schemas/evince.schemas
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_omf_dest_dir}/evince
+
+%files -n nautilus-extension-evince
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/*.so*
