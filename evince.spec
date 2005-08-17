@@ -1,8 +1,11 @@
+#
+# TODO: fix t1lib build time misdetection (very low prio)
+#
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.3.4
-Release:	0.2
+Release:	0.9
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.3/%{name}-%{version}.tar.bz2
@@ -14,6 +17,7 @@ URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	autoconf
 BuildRequires:	automake
+# NOTE: disabled until less broken release
 #BuildRequires:	dbus-glib-devel >= 0.33
 BuildRequires:	djvulibre-devel >= 3.5.15
 BuildRequires:	ghostscript
@@ -26,13 +30,16 @@ BuildRequires:	libglade2-devel >= 1:2.5.1
 BuildRequires:	libgnomeprintui-devel >= 2.10.0
 BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtiff-devel
 BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.4.0
 BuildRequires:	rpmbuild(macros) >= 1.197
+BuildRequires:	scrollkeeper
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	scrollkeeper
+Requires:	cairo >= 0.9.2-2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -55,10 +62,10 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	nautilus
 
 %description -n nautilus-extension-evince
-Evince extension for Nautilus.
+Shows Evince document properties in Nautilus.
 
 %description -n nautilus-extension-evince -l pl
-Rozszerzenie Evince dla Nautilusa.
+Pokazuje w³a¶ciwo¶ci dokumentu Evince w Nautilusie.
 
 %prep
 %setup -q
@@ -79,7 +86,6 @@ gnome-doc-prepare --copy --force
 	--enable-dvi \
 	--enable-nautilus \
 	--enable-pixbuf \
-	--enable-t1lib \
 	--enable-tiff
 %{__make}
 
