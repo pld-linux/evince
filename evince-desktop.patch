@@ -1,6 +1,12 @@
-+++ evince-0.3.1/data/evince.desktop.in.in.orig	2005-05-21 20:18:15.000000000 +0100
---- evince-0.3.1/data/evince.desktop.in.in	2005-05-21 20:18:47.000000000 +0100
-@@ -12,5 +12,5 @@
+diff -urN evince-0.3.4.orig/data/evince.desktop.in.in evince-0.3.4/data/evince.desktop.in.in
+--- evince-0.3.4.orig/data/evince.desktop.in.in	2005-08-18 09:43:18.463811504 +0200
++++ evince-0.3.4/data/evince.desktop.in.in	2005-08-18 09:44:30.697830264 +0200
+@@ -9,10 +9,9 @@
+ Terminal=false
+ Type=Application
+ Icon=postscript-viewer.png
+-NoDisplay=true
+ X-GNOME-DocPath=
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=evince
  X-GNOME-Bugzilla-Component=General
