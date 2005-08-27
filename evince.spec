@@ -5,19 +5,17 @@ Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.4.0
-Release:	0.9
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.4/%{name}-%{version}.tar.bz2
 # Source0-md5:	cc41e30108bc54a345bd6ca2556ab857
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
-#Patch2:		%{name}-disable_dbus.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-# NOTE: disabled until less broken release
 BuildRequires:	dbus-glib-devel >= 0.36
 BuildRequires:	djvulibre-devel >= 3.5.15
 BuildRequires:	ghostscript
@@ -71,7 +69,6 @@ Pokazuje w³a¶ciwo¶ci dokumentu Evince w Nautilusie.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
 
 %build
 gnome-doc-prepare --copy --force
