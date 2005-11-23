@@ -30,6 +30,7 @@ BuildRequires:	libgnomeprintui-devel >= 2.10.0
 BuildRequires:	libgnomeui-devel >= 2.10.0-2
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
+BuildRequires:	libxslt-progs
 BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.4.1
