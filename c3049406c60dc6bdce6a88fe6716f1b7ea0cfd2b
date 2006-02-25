@@ -1,0 +1,2 @@
+- rel.2 for rebuild with poppler 0.5.0-3 (crap, soname change!)
+- enable dbus support
