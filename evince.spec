@@ -25,7 +25,7 @@ BuildRequires:	ghostscript
 BuildRequires:	gnome-doc-utils >= 0.3.2
 BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
 BuildRequires:	gtk+2-devel >= 2:2.6.4
-BuildRequires:	intltool
+BuildRequires:	intltool >= 0.34.2-2
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.5.1
 BuildRequires:	libgnomeprintui-devel >= 2.10.0
