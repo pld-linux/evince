@@ -35,7 +35,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.5.0
+BuildRequires:	poppler-glib-devel >= 0.5.1
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
