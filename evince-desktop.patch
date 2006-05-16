@@ -4,7 +4,7 @@ diff -aurN evince-0.5.1.orig/data/evince.desktop.in.in evince-0.5.1/data/evince.
 @@ -9,10 +9,9 @@
  Terminal=false
  Type=Application
- Icon=postscript-viewer.png
+ Icon=evince.png
 -NoDisplay=true
  X-GNOME-DocPath=
  X-GNOME-Bugzilla-Bugzilla=GNOME
