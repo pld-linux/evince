@@ -1,39 +1,41 @@
 #
 # TODO: fix t1lib build time misdetection (very low prio)
 #
-%bcond_with	dbus
+# Conditional build:
+%bcond_without	dbus	# enable DBUS support
+#
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
-Version:	0.4.0
-Release:	3
+Version:	0.5.2
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	cc41e30108bc54a345bd6ca2556ab857
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.5/%{name}-%{version}.tar.bz2
+# Source0-md5:	732df368435cebddd4cc8132a8a280bd
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
-BuildRequires:	GConf2-devel >= 2.10.0
+BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.36}
 BuildRequires:	djvulibre-devel >= 3.5.15
 BuildRequires:	ghostscript
 BuildRequires:	gnome-doc-utils >= 0.3.2
-BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
+BuildRequires:	gnome-vfs2-devel >= 2.14.0
 BuildRequires:	gtk+2-devel >= 2:2.6.4
-BuildRequires:	intltool
+BuildRequires:	intltool >= 0.34.2-2
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.5.1
-BuildRequires:	libgnomeprintui-devel >= 2.10.0
-BuildRequires:	libgnomeui-devel >= 2.10.0-2
+BuildRequires:	libgnomeprintui-devel >= 2.12.0
+BuildRequires:	libgnomeui-devel >= 2.14.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.4.1
+BuildRequires:	poppler-glib-devel >= 0.5.1
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -41,6 +43,7 @@ Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 0.9.2-2
+Requires:	poppler-glib >= 0.5.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
