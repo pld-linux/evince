@@ -20,11 +20,11 @@ BuildRequires:	GConf2-devel >= 2.10.0
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.36}
-BuildRequires:	djvulibre-devel >= 3.5.15
+BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	ghostscript
 BuildRequires:	gnome-doc-utils >= 0.3.2
 BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
-BuildRequires:	gtk+2-devel >= 2:2.6.4
+BuildRequires:	gtk+2-devel >= 2:2.8.0
 BuildRequires:	intltool >= 0.34.2-2
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.5.1
@@ -43,6 +43,8 @@ Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 0.9.2-2
+Requires:	djvulibre >= 3.5.17
+Requires:	gtk+2 >= 2:2.8.0
 Requires:	poppler-glib >= 0.5.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
