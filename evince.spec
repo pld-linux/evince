@@ -8,7 +8,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.5.2
-Release:	2
+Release:	3
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.5/%{name}-%{version}.tar.bz2
@@ -43,6 +43,7 @@ Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 0.9.2-2
+Requires:	libgnomeui >= 2.14.0
 Requires:	poppler-glib >= 0.5.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -63,7 +64,7 @@ Summary:	Evince extension for Nautilus
 Summary(pl):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus
+Requires:	nautilus >= 2.14
 
 %description -n nautilus-extension-evince
 Shows Evince document properties in Nautilus.
