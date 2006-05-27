@@ -16,20 +16,20 @@ Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.5/%{name}-%{version}.ta
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
-BuildRequires:	GConf2-devel >= 2.10.0
+BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.36}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	ghostscript
 BuildRequires:	gnome-doc-utils >= 0.3.2
-BuildRequires:	gnome-vfs2-devel >= 2.10.0-2
+BuildRequires:	gnome-vfs2-devel >= 2.14.0
 BuildRequires:	gtk+2-devel >= 2:2.8.0
 BuildRequires:	intltool >= 0.34.2-2
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.5.1
-BuildRequires:	libgnomeprintui-devel >= 2.10.0
-BuildRequires:	libgnomeui-devel >= 2.10.0-2
+BuildRequires:	libgnomeprintui-devel >= 2.12.0
+BuildRequires:	libgnomeui-devel >= 2.14.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs
@@ -45,6 +45,7 @@ Requires(post,postun):	scrollkeeper
 Requires:	cairo >= 0.9.2-2
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.8.0
+Requires:	libgnomeui >= 2.14.0
 Requires:	poppler-glib >= 0.5.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -65,7 +66,7 @@ Summary:	Evince extension for Nautilus
 Summary(pl):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus
+Requires:	nautilus >= 2.14
 
 %description -n nautilus-extension-evince
 Shows Evince document properties in Nautilus.
