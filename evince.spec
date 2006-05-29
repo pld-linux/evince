@@ -8,7 +8,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.5.3
-Release:	0.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.5/%{name}-%{version}.tar.bz2
@@ -35,7 +35,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs
 BuildRequires:	nautilus-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.5.1
+BuildRequires:	poppler-glib-devel >= 0.5.2
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -102,7 +102,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -r $RPM_BUILD_ROOT%{_datadir}/locale/no
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 
 %find_lang %{name} --with-gnome
@@ -138,6 +137,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/evince.schemas
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
+%{_iconsdir}/*/*/*
 %{_omf_dest_dir}/evince
 
 %files -n nautilus-extension-evince
