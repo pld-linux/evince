@@ -8,7 +8,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
 Version:	0.5.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.5/%{name}-%{version}.tar.bz2
@@ -19,34 +19,35 @@ URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.36}
+%{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.62}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	ghostscript
-BuildRequires:	gnome-doc-utils >= 0.3.2
-BuildRequires:	gnome-vfs2-devel >= 2.14.0
-BuildRequires:	gtk+2-devel >= 2:2.8.0
-BuildRequires:	intltool >= 0.34.2-2
+BuildRequires:	gnome-doc-utils >= 0.7.1
+BuildRequires:	gnome-vfs2-devel >= 2.15.3
+BuildRequires:	gtk+2-devel >= 2:2.10.0
+BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
-BuildRequires:	libglade2-devel >= 1:2.5.1
-BuildRequires:	libgnomeprintui-devel >= 2.12.0
-BuildRequires:	libgnomeui-devel >= 2.14.0
+BuildRequires:	libglade2-devel >= 1:2.6.0
+BuildRequires:	libgnomeprintui-devel >= 2.12.1
+BuildRequires:	libgnomeui-devel >= 2.15.2
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
-BuildRequires:	libxslt-progs
-BuildRequires:	nautilus-devel
+BuildRequires:	libxslt-progs >= 1.1.17
+BuildRequires:	nautilus-devel >= 2.15.4
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.5.2
+BuildRequires:	poppler-glib-devel >= 0.5.3
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	gtk+2 >= 2:2.10.0
 Requires(post,postun):	scrollkeeper
-Requires:	cairo >= 0.9.2-2
+Requires:	cairo >= 1.2.0
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.8.0
-Requires:	libgnomeui >= 2.14.0
-Requires:	poppler-glib >= 0.5.0
+Requires:	gtk+2 >= 2:2.10.0
+Requires:	libgnomeui >= 2.15.2
+Requires:	poppler-glib >= 0.5.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -66,7 +67,7 @@ Summary:	Evince extension for Nautilus
 Summary(pl):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus >= 2.14
+Requires:	nautilus >= 2.15.4
 
 %description -n nautilus-extension-evince
 Shows Evince document properties in Nautilus.
@@ -85,6 +86,7 @@ gnome-doc-prepare --copy --force
 %{__autoconf}
 %{__autoheader}
 %{__automake}
+LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	--disable-static \
 	--disable-schemas-install \
@@ -116,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_install evince.schemas
 %update_desktop_database_post
 %scrollkeeper_update_post
+gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 
 %preun
 %gconf_schema_uninstall evince-thumbnailer-djvu.schemas
@@ -126,6 +129,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun
 %update_desktop_database_postun
 %scrollkeeper_update_postun
+gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
