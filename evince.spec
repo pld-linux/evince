@@ -7,33 +7,32 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl):	Przegl±darka dokumentów w wielu formatach
 Name:		evince
-Version:	0.5.4
-Release:	2
+Version:	0.5.5
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.5/%{name}-%{version}.tar.bz2
-# Source0-md5:	82ea2cc4ae080aa5cbc2b1c7739ccb96
+# Source0-md5:	d32d7ee1b84be2c18ad3249aea79d966
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.14.0
 BuildRequires:	autoconf
 BuildRequires:	automake
-%{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.62}
+%{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	ghostscript
-BuildRequires:	gnome-doc-utils >= 0.7.1
-BuildRequires:	gnome-vfs2-devel >= 2.15.3
-BuildRequires:	gtk+2-devel >= 2:2.10.0
+BuildRequires:	gnome-doc-utils >= 0.7.2
+BuildRequires:	gnome-vfs2-devel >= 2.15.91
+BuildRequires:	gtk+2-devel >= 2:2.10.1
 BuildRequires:	intltool >= 0.35.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.6.0
-BuildRequires:	libgnomeprintui-devel >= 2.12.1
-BuildRequires:	libgnomeui-devel >= 2.15.2
+BuildRequires:	libgnomeui-devel >= 2.15.91
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs >= 1.1.17
-BuildRequires:	nautilus-devel >= 2.15.4
+BuildRequires:	nautilus-devel >= 2.15.91
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.5.3
 BuildRequires:	python-libxml2
@@ -41,12 +40,12 @@ BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
 Requires(post,preun):	GConf2
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	gtk+2 >= 2:2.10.0
+Requires(post,postun):	gtk+2 >= 2:2.10.1
 Requires(post,postun):	scrollkeeper
-Requires:	cairo >= 1.2.0
+Requires:	cairo >= 1.2.2
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.10.0
-Requires:	libgnomeui >= 2.15.2
+Requires:	gtk+2 >= 2:2.10.1
+Requires:	libgnomeui >= 2.15.91
 Requires:	poppler-glib >= 0.5.3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -81,21 +80,24 @@ Pokazuje w³a¶ciwo¶ci dokumentu Evince w Nautilusie.
 %patch1 -p1
 
 %build
-gnome-doc-prepare --copy --force
+%{__gnome_doc_prepare}
+%{__intltoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	--disable-static \
 	--disable-schemas-install \
+	--enable-comics \
 	%{?with_dbus:--enable-dbus} \
 	--enable-djvu \
 	--enable-dvi \
+	--enable-impress \
 	--enable-nautilus \
 	--enable-pixbuf \
-	--enable-tiff
+	--enable-tiff \
+	--with-print=gtk
 %{__make}
 
 %install
@@ -106,39 +108,44 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 
+%find_lang Evince
 %find_lang %{name} --with-gnome
+cat Evince.lang >> %{name}.lang
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
+%gconf_schema_install evince.schemas
+%gconf_schema_install evince-thumbnailer-comics.schemas
 %gconf_schema_install evince-thumbnailer-djvu.schemas
 %gconf_schema_install evince-thumbnailer-dvi.schemas
 %gconf_schema_install evince-thumbnailer.schemas
-%gconf_schema_install evince.schemas
 %update_desktop_database_post
 %scrollkeeper_update_post
-gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
+%update_icon_cache hicolor
 
 %preun
+%gconf_schema_uninstall evince.schemas
+%gconf_schema_uninstall evince-thumbnailer-comics.schemas
 %gconf_schema_uninstall evince-thumbnailer-djvu.schemas
 %gconf_schema_uninstall evince-thumbnailer-dvi.schemas
 %gconf_schema_uninstall evince-thumbnailer.schemas
-%gconf_schema_uninstall evince.schemas
 
 %postun
 %update_desktop_database_postun
 %scrollkeeper_update_postun
-gtk-update-icon-cache -qf %{_datadir}/icons/hicolor
+%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/*
+%{_sysconfdir}/gconf/schemas/evince.schemas
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-comics.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
-%{_sysconfdir}/gconf/schemas/evince.schemas
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_iconsdir}/*/*/*
