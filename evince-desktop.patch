@@ -1,15 +1,18 @@
-diff -aurN evince-0.5.1.orig/data/evince.desktop.in.in evince-0.5.1/data/evince.desktop.in.in
---- evince-0.5.1.orig/data/evince.desktop.in.in	2006-01-21 20:34:35.000000000 +0100
-+++ evince-0.5.1/data/evince.desktop.in.in	2006-02-28 09:23:37.347143208 +0100
-@@ -9,10 +9,9 @@
+diff -aurN evince-0.5.5.orig/data/evince.desktop.in.in evince-0.5.5/data/evince.desktop.in.in
+--- evince-0.5.5.orig/data/evince.desktop.in.in	2006-08-07 23:33:06.000000000 +0200
++++ evince-0.5.5/data/evince.desktop.in.in	2006-08-10 21:30:13.512390015 +0200
+@@ -8,12 +8,11 @@
+ StartupNotify=true
  Terminal=false
  Type=Application
- Icon=evince.png
+-Icon=evince.png
 -NoDisplay=true
++Icon=evince
  X-GNOME-DocPath=
  X-GNOME-Bugzilla-Bugzilla=GNOME
  X-GNOME-Bugzilla-Product=evince
- X-GNOME-Bugzilla-Component=General
+ X-GNOME-Bugzilla-Component=general
+ X-GNOME-Bugzilla-Version=@VERSION@
 -Categories=GNOME;GTK;Application;Graphics;VectorGraphics;Viewer;
 +Categories=GTK;GNOME;Graphics;Viewer;
  MimeType=@EVINCE_MIME_TYPES@
