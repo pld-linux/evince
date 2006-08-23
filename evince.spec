@@ -148,7 +148,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
-%{_iconsdir}/*/*/*
+%{_iconsdir}/*/*/*/*
 %{_omf_dest_dir}/evince
 
 %files -n nautilus-extension-evince
