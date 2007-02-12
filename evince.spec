@@ -5,7 +5,7 @@
 %bcond_without	dbus	# enable DBUS support
 #
 Summary:	Document viewer for multiple document formats
-Summary(pl.UTF-8):   Przeglądarka dokumentów w wielu formatach
+Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	0.7.0
 Release:	1
@@ -64,7 +64,7 @@ xpdf jedną prostą aplikacją.
 
 %package -n nautilus-extension-evince
 Summary:	Evince extension for Nautilus
-Summary(pl.UTF-8):   Rozszerzenie Evince dla Nautilusa
+Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	nautilus >= 2.16.1
