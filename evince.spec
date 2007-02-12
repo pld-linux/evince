@@ -5,7 +5,7 @@
 %bcond_without	dbus	# enable DBUS support
 #
 Summary:	Document viewer for multiple document formats
-Summary(pl):	Przegl±darka dokumentÛw w wielu formatach
+Summary(pl.UTF-8):   PrzeglƒÖdarka dokument√≥w w wielu formatach
 Name:		evince
 Version:	0.7.0
 Release:	1
@@ -56,15 +56,15 @@ postscript, and many others. The goal of evince is to replace the
 multiple document viewers that exist on the GNOME Desktop, like ggv,
 gpdf, and xpdf with a single simple application.
 
-%description -l pl
-Evince jest przegl±dark± dokumentÛw w wielu formatach takich jak pdf,
-postscript i wielu innych. W zamierzeniach program ma zast±piÊ
-przegl±darki dokumentÛw dla ∂rodowiska GNOME, takie jak ggv, gpdf i
-xpdf jedn± prost± aplikacj±.
+%description -l pl.UTF-8
+Evince jest przeglƒÖdarkƒÖ dokument√≥w w wielu formatach takich jak pdf,
+postscript i wielu innych. W zamierzeniach program ma zastƒÖpiƒá
+przeglƒÖdarki dokument√≥w dla ≈õrodowiska GNOME, takie jak ggv, gpdf i
+xpdf jednƒÖ prostƒÖ aplikacjƒÖ.
 
 %package -n nautilus-extension-evince
 Summary:	Evince extension for Nautilus
-Summary(pl):	Rozszerzenie Evince dla Nautilusa
+Summary(pl.UTF-8):   Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	nautilus >= 2.16.1
@@ -72,8 +72,8 @@ Requires:	nautilus >= 2.16.1
 %description -n nautilus-extension-evince
 Shows Evince document properties in Nautilus.
 
-%description -n nautilus-extension-evince -l pl
-Pokazuje w≥a∂ciwo∂ci dokumentu Evince w Nautilusie.
+%description -n nautilus-extension-evince -l pl.UTF-8
+Pokazuje w≈Ça≈õciwo≈õci dokumentu Evince w Nautilusie.
 
 %prep
 %setup -q
