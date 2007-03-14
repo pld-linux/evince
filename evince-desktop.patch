@@ -1,5 +1,6 @@
---- evince-0.7.2/data/evince.desktop.in.in~	2007-02-13 13:13:29.000000000 +0100
-+++ evince-0.7.2/data/evince.desktop.in.in	2007-02-13 13:14:38.988426888 +0100
+diff -Nur evince-0.8.0.orig/data/evince.desktop.in.in evince-0.8.0/data/evince.desktop.in.in
+--- evince-0.8.0.orig/data/evince.desktop.in.in	2007-03-12 22:03:24.000000000 +0000
++++ evince-0.8.0/data/evince.desktop.in.in	2007-03-14 10:08:48.000000000 +0000
 @@ -9,11 +9,10 @@
  Terminal=false
  Type=Application
@@ -10,6 +11,6 @@
  X-GNOME-Bugzilla-Product=evince
  X-GNOME-Bugzilla-Component=general
  X-GNOME-Bugzilla-Version=@VERSION@
--Categories=GNOME;GTK;Application;Graphics;VectorGraphics;Viewer;
+-Categories=GNOME;GTK;Graphics;VectorGraphics;Viewer;
 +Categories=GTK;GNOME;Graphics;Viewer;
  MimeType=@EVINCE_MIME_TYPES@
