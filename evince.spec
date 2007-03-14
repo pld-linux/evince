@@ -2,7 +2,8 @@
 # TODO: fix t1lib build time misdetection (very low prio)
 #
 # Conditional build:
-%bcond_without	dbus	# enable DBUS support
+%bcond_without	dbus		# enable DBUS support
+%bcond_without	apidocs		# disable gtk-doc
 #
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
@@ -75,6 +76,18 @@ Shows Evince document properties in Nautilus.
 %description -n nautilus-extension-evince -l pl.UTF-8
 Pokazuje właściwości dokumentu Evince w Nautilusie.
 
+%package apidocs
+Summary:	Evince API documentation
+Summary(pl.UTF-8):	Dokumentacja API aplikacji Evince
+Group:		Documentation
+Requires:	gtk-doc-common
+
+%description apidocs
+Evince API documentation.
+
+%description apidocs -l pl.UTF-8
+Dokumentacja API aplikacji Evince.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -88,6 +101,7 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{?with_apidocs:--enable-gtk-doc} \
 	--disable-static \
 	--disable-schemas-install \
 	--enable-comics \
@@ -98,14 +112,16 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 	--enable-nautilus \
 	--enable-pixbuf \
 	--enable-tiff \
-	--with-print=gtk
+	--with-print=gtk \
+	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	HTML_DIR=%{_gtkdocdir}
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 
@@ -140,6 +156,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/*
+%{_mandir}/man1/*
 %{_sysconfdir}/gconf/schemas/evince.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-comics.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
@@ -153,3 +170,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -n nautilus-extension-evince
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/*.so*
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/*
+%endif
