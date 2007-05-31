@@ -147,7 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_uninstall evince-thumbnailer-djvu.schemas
 %gconf_schema_uninstall evince-thumbnailer-dvi.schemas
 %gconf_schema_uninstall evince-thumbnailer.schemas
-%gconf_schema_uninstall evince-thumbnalier-ps.schemas
+%gconf_schema_uninstall evince-thumbnailer-ps.schemas
 
 %postun
 %update_desktop_database_postun
