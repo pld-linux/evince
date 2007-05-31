@@ -8,12 +8,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	0.8.1
+Version:	0.9.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.8/%{name}-%{version}.tar.bz2
-# Source0-md5:	f09c8d2a6c75abe50c6db7833d66a5b4
+Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/0.9/%{name}-%{version}.tar.bz2
+# Source0-md5:	620294cf13a7b98e966bfa64a9eec08f
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -136,6 +136,7 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_install evince-thumbnailer-djvu.schemas
 %gconf_schema_install evince-thumbnailer-dvi.schemas
 %gconf_schema_install evince-thumbnailer.schemas
+%gconf_schema_install evince-thumbnailer-ps.schemas
 %update_desktop_database_post
 %scrollkeeper_update_post
 %update_icon_cache hicolor
@@ -146,6 +147,7 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_uninstall evince-thumbnailer-djvu.schemas
 %gconf_schema_uninstall evince-thumbnailer-dvi.schemas
 %gconf_schema_uninstall evince-thumbnailer.schemas
+%gconf_schema_uninstall evince-thumbnalier-ps.schemas
 
 %postun
 %update_desktop_database_postun
@@ -161,6 +163,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-comics.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-ps.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
