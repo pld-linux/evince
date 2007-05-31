@@ -49,6 +49,7 @@ Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.10.6
 Requires:	libgnomeui >= 2.16.1
 Requires:	poppler-glib >= 0.5.4
+Conflicts:	evince-gtk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
