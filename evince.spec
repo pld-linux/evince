@@ -36,7 +36,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libxslt-progs >= 1.1.17
 BuildRequires:	nautilus-devel >= 2.16.1
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.5.4
+BuildRequires:	poppler-glib-devel >= 0.5.9
 BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -48,7 +48,7 @@ Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.10.6
 Requires:	libgnomeui >= 2.16.1
-Requires:	poppler-glib >= 0.5.4
+Requires:	poppler-glib >= 0.5.9
 Conflicts:	evince-gtk
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
