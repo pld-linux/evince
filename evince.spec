@@ -9,7 +9,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	2.20.1
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.20/%{name}-%{version}.tar.bz2
@@ -50,6 +50,8 @@ Requires:	gtk+2 >= 2:2.10.6
 Requires:	libgnomeui >= 2.16.1
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince-gtk
+# sr@Latn vs. sr@latin
+Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -126,6 +128,8 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 
+[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
+	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
 %find_lang %{name} --with-gnome
 
 %clean
