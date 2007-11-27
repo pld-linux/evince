@@ -8,12 +8,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.20.1
-Release:	2
+Version:	2.20.2
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/gnome/sources/evince/2.20/%{name}-%{version}.tar.bz2
-# Source0-md5:	c0f3e4d5279ef3d08cc46b752e230c01
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.20/%{name}-%{version}.tar.bz2
+# Source0-md5:	15214f5211d9f98ffa0afd8158b7d021
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -38,6 +38,8 @@ BuildRequires:	nautilus-devel >= 2.16.1
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.6
 BuildRequires:	python-libxml2
+# support for --with-omf in find-lang.sh
+BuildRequires:	rpm-build >= 4.4.9-10
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
 Requires(post,preun):	GConf2
@@ -96,6 +98,9 @@ Dokumentacja API aplikacji Evince.
 %patch0 -p1
 %patch1 -p1
 
+sed -i -e 's#sr\@Latn#sr\@latin#' po/LINGUAS
+mv po/sr\@{Latn,latin}.po
+
 %build
 %{__gnome_doc_prepare}
 %{__intltoolize}
@@ -128,9 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 
-[ -d $RPM_BUILD_ROOT%{_datadir}/locale/sr@latin ] || \
-	mv -f $RPM_BUILD_ROOT%{_datadir}/locale/sr@{Latn,latin}
-%find_lang %{name} --with-gnome
+%find_lang %{name} --with-gnome --with-omf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -173,7 +176,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_iconsdir}/*/*/*/*
-%{_omf_dest_dir}/evince
 
 %files -n nautilus-extension-evince
 %defattr(644,root,root,755)
