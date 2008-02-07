@@ -1,6 +1,4 @@
 #
-# TODO: fix t1lib build time misdetection (very low prio)
-#
 # Conditional build:
 %bcond_without	dbus		# disable DBUS support
 %bcond_without	apidocs		# disable gtk-doc
@@ -8,53 +6,58 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.21.1
+Version:	2.21.90
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.21/%{name}-%{version}.tar.bz2
-# Source0-md5:	24fb73444987357373098e57c8361ebb
+# Source0-md5:	2d3dbc6a8890858ff9e4abc13bb5b6d4
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-gs8.patch
 URL:		http://www.gnome.org/projects/evince/
-BuildRequires:	GConf2-devel >= 2.16.0
-BuildRequires:	autoconf
-BuildRequires:	automake
-%{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.71}
+BuildRequires:	GConf2-devel >= 2.21.90
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake >= 1:1.9
+%{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
 BuildRequires:	djvulibre-devel >= 3.5.17
-BuildRequires:	ghostscript
-BuildRequires:	gnome-doc-utils >= 0.8.0
+BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel >= 1:2.15.4
+BuildRequires:	gnome-common >= 2.20.0
+BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gnome-icon-theme >= 2.20.0
-BuildRequires:	gnome-vfs2-devel >= 2.16.1
-BuildRequires:	gtk+2-devel >= 2:2.12.0
-BuildRequires:	intltool >= 0.35.0
+BuildRequires:	gnome-keyring-devel >= 2.21.5
+BuildRequires:	gtk+2-devel >= 2:2.12.5
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
+BuildRequires:	intltool >= 0.37.0
 BuildRequires:	kpathsea-devel
-BuildRequires:	libglade2-devel >= 1:2.6.0
-BuildRequires:	libgnomeui-devel >= 2.16.1
-BuildRequires:	libstdc++-devel
+BuildRequires:	libglade2-devel >= 1:2.6.2
+BuildRequires:	libgnomeui-devel >= 2.21.90
+BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
-BuildRequires:	libxslt-progs >= 1.1.17
-BuildRequires:	nautilus-devel >= 2.16.1
+BuildRequires:	libtool
+BuildRequires:	libxml2-devel >= 1:2.6.31
+BuildRequires:	nautilus-devel >= 2.21.90
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.6
-BuildRequires:	python-libxml2
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
 BuildRequires:	sed >= 4.0
-Requires(post,preun):	GConf2
+BuildRequires:	t1lib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	gtk+2 >= 2:2.10.6
+Requires(post,postun):	gtk+2
 Requires(post,postun):	scrollkeeper
+Requires(post,preun):	GConf2
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.10.6
-Requires:	libgnomeui >= 2.16.1
+Requires:	gtk+2 >= 2:2.12.5
+Requires:	libgnomeui >= 2.21.90
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		backendsdir	%{_libdir}/evince/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -68,18 +71,18 @@ postscript i wielu innych. W zamierzeniach program ma zastąpić
 przeglądarki dokumentów dla środowiska GNOME, takie jak ggv, gpdf i
 xpdf jedną prostą aplikacją.
 
-%package -n nautilus-extension-evince
-Summary:	Evince extension for Nautilus
-Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
-Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus >= 2.16.1
+%package devel
+Summary:	Header files for Evince
+Summary(pl.UTF-8):	Pliki nagłówkowe Evince
+Group:		X11/Development/Libraries
+Requires:	glib2-devel >= 1:2.15.4
+Requires:	gtk+2-devel >= 2:2.12.5
 
-%description -n nautilus-extension-evince
-Shows Evince document properties in Nautilus.
+%description devel
+Header files for Evince.
 
-%description -n nautilus-extension-evince -l pl.UTF-8
-Pokazuje właściwości dokumentu Evince w Nautilusie.
+%description devel -l pl.UTF-8
+Pliki nagłówkowe Evince.
 
 %package apidocs
 Summary:	Evince API documentation
@@ -93,17 +96,30 @@ Evince API documentation.
 %description apidocs -l pl.UTF-8
 Dokumentacja API aplikacji Evince.
 
+%package -n nautilus-extension-evince
+Summary:	Evince extension for Nautilus
+Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
+Group:		X11/Applications
+Requires:	%{name} = %{version}-%{release}
+Requires:	nautilus >= 2.21.90
+
+%description -n nautilus-extension-evince
+Shows Evince document properties in Nautilus.
+
+%description -n nautilus-extension-evince -l pl.UTF-8
+Pokazuje właściwości dokumentu Evince w Nautilusie.
+
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
-sed -i -e 's#sr\@Latn#sr\@latin#' po/LINGUAS
-mv po/sr\@{Latn,latin}.po
+sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
+mv po/sr@{Latn,latin}.po
 
 %build
 %{__gnome_doc_prepare}
 %{__intltoolize}
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
@@ -113,11 +129,12 @@ mv po/sr\@{Latn,latin}.po
 	--disable-static \
 	--disable-schemas-install \
 	--enable-comics \
-	%{?with_dbus:--enable-dbus} \
 	--enable-djvu \
 	--enable-dvi \
 	--enable-impress \
+	--enable-t1lib \
 	--enable-nautilus \
+	--enable-pdf \
 	--enable-pixbuf \
 	--enable-tiff \
 	--with-print=gtk \
@@ -128,10 +145,10 @@ mv po/sr\@{Latn,latin}.po
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	HTML_DIR=%{_gtkdocdir}
+	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
+rm -f $RPM_BUILD_ROOT%{backendsdir}/*.la
+rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-2.0/*.la
 
 %find_lang %{name} --with-gnome --with-omf
 
@@ -139,6 +156,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-1.0/*.la
 rm -rf $RPM_BUILD_ROOT
 
 %post
+/sbin/ldconfig
 %gconf_schema_install evince.schemas
 %gconf_schema_install evince-thumbnailer-comics.schemas
 %gconf_schema_install evince-thumbnailer-djvu.schemas
@@ -158,6 +176,7 @@ rm -rf $RPM_BUILD_ROOT
 %gconf_schema_uninstall evince-thumbnailer-ps.schemas
 
 %postun
+/sbin/ldconfig
 %update_desktop_database_postun
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
@@ -165,8 +184,28 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
-%attr(755,root,root) %{_bindir}/*
-%{_mandir}/man1/*
+%attr(755,root,root) %{_bindir}/evince
+%attr(755,root,root) %{_bindir}/evince-thumbnailer
+%attr(755,root,root) %{_libdir}/libevbackend.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevbackend.so.0
+%dir %{_libdir}/evince
+%dir %{backendsdir}
+%attr(755,root,root) %{backendsdir}/libcomicsdocument.so
+%{backendsdir}/comicsdocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libdjvudocument.so
+%{backendsdir}/djvudocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libdvidocument.so*
+%{backendsdir}/dvidocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libimpressdocument.so
+%{backendsdir}/impressdocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libpdfdocument.so
+%{backendsdir}/pdfdocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libpixbufdocument.so
+%{backendsdir}/pixbufdocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libpsdocument.so
+%{backendsdir}/psdocument.evince-backend
+%attr(755,root,root) %{backendsdir}/libtiffdocument.so
+%{backendsdir}/tiffdocument.evince-backend
 %{_sysconfdir}/gconf/schemas/evince.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-comics.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
@@ -174,15 +213,23 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-ps.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
 %{_datadir}/%{name}
-%{_desktopdir}/*.desktop
-%{_iconsdir}/*/*/*/*
+%{_mandir}/man1/evince.1*
+%{_desktopdir}/evince.desktop
+%{_iconsdir}/hicolor/*/*/*.png
+%{_iconsdir}/hicolor/*/*/*.svg
 
-%files -n nautilus-extension-evince
+%files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/nautilus/extensions-1.0/*.so*
+%attr(755,root,root) %{_libdir}/libevbackend.so
+%{_libdir}/libevbackend.la
+%{_includedir}/evince-2.20
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/*
+%{_gtkdocdir}/evince
 %endif
+
+%files -n nautilus-extension-evince
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/nautilus/extensions-2.0/libevince-properties-page.so
