@@ -13,7 +13,6 @@ Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.21/%{name}-%{version}.tar.bz2
 # Source0-md5:	923843329832f4c9ac7c8bbd925d5bd3
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-thumbnailer-type-init.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.21.90
 BuildRequires:	autoconf >= 2.57
@@ -113,7 +112,6 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
 mv po/sr@{Latn,latin}.po
