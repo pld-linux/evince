@@ -6,15 +6,15 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.21.91
+Version:	2.22.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.21/%{name}-%{version}.tar.bz2
-# Source0-md5:	923843329832f4c9ac7c8bbd925d5bd3
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.22/%{name}-%{version}.tar.bz2
+# Source0-md5:	9fc7eb5757549626b7515b853a5f6b97
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/evince/
-BuildRequires:	GConf2-devel >= 2.21.90
+BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.9
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
@@ -24,18 +24,17 @@ BuildRequires:	glib2-devel >= 1:2.15.4
 BuildRequires:	gnome-common >= 2.20.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
 BuildRequires:	gnome-icon-theme >= 2.20.0
-BuildRequires:	gnome-keyring-devel >= 2.21.5
 BuildRequires:	gtk+2-devel >= 2:2.12.5
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	intltool >= 0.37.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.6.2
-BuildRequires:	libgnomeui-devel >= 2.21.90
+BuildRequires:	libgnomeui-devel >= 2.22.0
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
-BuildRequires:	nautilus-devel >= 2.21.90
+BuildRequires:	nautilus-devel >= 2.22.0
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
@@ -50,7 +49,7 @@ Requires(post,preun):	GConf2
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.12.5
-Requires:	libgnomeui >= 2.21.90
+Requires:	libgnomeui >= 2.22.0
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
@@ -101,7 +100,7 @@ Summary:	Evince extension for Nautilus
 Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus >= 2.21.90
+Requires:	nautilus >= 2.22.0
 
 %description -n nautilus-extension-evince
 Shows Evince document properties in Nautilus.
