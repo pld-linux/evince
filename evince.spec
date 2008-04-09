@@ -6,14 +6,13 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.22.0
-Release:	2
+Version:	2.22.1.1
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.22/%{name}-%{version}.tar.bz2
-# Source0-md5:	9fc7eb5757549626b7515b853a5f6b97
+# Source0-md5:	568ff7211a185d71d0e9de15a07f4987
 Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-poppler080.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.22.0
 BuildRequires:	autoconf >= 2.57
@@ -21,16 +20,16 @@ BuildRequires:	automake >= 1:1.9
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.15.4
+BuildRequires:	glib2-devel >= 1:2.16.3
 BuildRequires:	gnome-common >= 2.20.0
 BuildRequires:	gnome-doc-utils >= 0.12.0
-BuildRequires:	gnome-icon-theme >= 2.20.0
-BuildRequires:	gtk+2-devel >= 2:2.12.5
+BuildRequires:	gnome-icon-theme >= 2.22.0
+BuildRequires:	gtk+2-devel >= 2:2.12.9
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	intltool >= 0.37.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.6.2
-BuildRequires:	libgnomeui-devel >= 2.22.0
+BuildRequires:	libgnomeui-devel >= 2.22.1
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
@@ -49,8 +48,8 @@ Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.12.5
-Requires:	libgnomeui >= 2.22.0
+Requires:	gtk+2 >= 2:2.12.9
+Requires:	libgnomeui >= 2.22.1
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
@@ -75,8 +74,8 @@ xpdf jedną prostą aplikacją.
 Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
-Requires:	glib2-devel >= 1:2.15.4
-Requires:	gtk+2-devel >= 2:2.12.5
+Requires:	glib2-devel >= 1:2.16.3
+Requires:	gtk+2-devel >= 2:2.12.9
 
 %description devel
 Header files for Evince.
@@ -112,7 +111,6 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
 mv po/sr@{Latn,latin}.po
