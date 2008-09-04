@@ -6,12 +6,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.23.6
+Version:	2.23.91
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.23/%{name}-%{version}.tar.bz2
-# Source0-md5:	04763835f04c3c8f52bfcef2041948a9
+# Source0-md5:	cd8f03186172147d74c3c0a488389e89
 Patch0:		%{name}-desktop.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.22.0
@@ -30,7 +30,6 @@ BuildRequires:	gtk+2-devel >= 2:2.12.9
 BuildRequires:	intltool >= 0.37.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libglade2-devel >= 1:2.6.2
-BuildRequires:	libgnomeui-devel >= 2.22.1
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
@@ -50,7 +49,6 @@ Requires(post,preun):	GConf2
 Requires:	cairo >= 1.2.4
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.12.9
-Requires:	libgnomeui >= 2.22.1
 Requires:	poppler-glib >= 0.6
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
@@ -112,9 +110,6 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 %prep
 %setup -q
 %patch0 -p1
-
-sed -i -e 's#sr@Latn#sr@latin#' po/LINGUAS
-mv po/sr@{Latn,latin}.po
 
 %build
 %{__gnome_doc_prepare}
