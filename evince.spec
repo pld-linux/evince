@@ -6,12 +6,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.24.2
-Release:	3
+Version:	2.26.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.24/%{name}-%{version}.tar.bz2
-# Source0-md5:	f0f9e06a93516b238ee24ac38d68b57c
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.26/%{name}-%{version}.tar.bz2
+# Source0-md5:	11c440e48702231e40066a78aae56f84
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	autoconf >= 2.57
@@ -19,40 +19,40 @@ BuildRequires:	automake >= 1:1.9
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.18.0
+BuildRequires:	glib2-devel >= 1:2.20.0
 BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-doc-utils >= 0.14.0
-BuildRequires:	gnome-keyring-devel >= 2.24.0
-BuildRequires:	gnome-icon-theme >= 2.24.0
-BuildRequires:	gtk+2-devel >= 2:2.14.0
+BuildRequires:	gnome-icon-theme >= 2.26.0
+BuildRequires:	gnome-keyring-devel >= 2.26.0
+BuildRequires:	gtk+2-devel >= 2:2.16.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
-BuildRequires:	libglade2-devel >= 1:2.6.2
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
-BuildRequires:	nautilus-devel >= 2.24.0
+BuildRequires:	nautilus-devel >= 2.26.0
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.8.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
 BuildRequires:	t1lib-devel
+BuildRequires:	xorg-lib-libSM-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	djvulibre >= 3.5.17
-Requires:	gtk+2 >= 2:2.14.0
+Requires:	gtk+2 >= 2:2.16.0
 Requires:	poppler-glib >= 0.8.0
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/evince/backends
+%define		backendsdir	%{_libdir}/evince/1/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -70,7 +70,7 @@ xpdf jedną prostą aplikacją.
 Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
-Requires:	gtk+2-devel >= 2:2.14.0
+Requires:	gtk+2-devel >= 2:2.16.0
 
 %description devel
 Header files for Evince.
@@ -95,7 +95,7 @@ Summary:	Evince extension for Nautilus
 Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus >= 2.24.0
+Requires:	nautilus >= 2.26.0
 
 %description -n nautilus-extension-evince
 Shows Evince document properties in Nautilus.
@@ -175,9 +175,12 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
-%attr(755,root,root) %{_libdir}/libevbackend.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevbackend.so.0
+%attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.1
+%attr(755,root,root) %{_libdir}/libevview.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevview.so.1
 %dir %{_libdir}/evince
+%dir %{_libdir}/evince/1
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
@@ -209,14 +212,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libevbackend.so
-%{_libdir}/libevbackend.la
-%{_includedir}/evince-2.20
+%attr(755,root,root) %{_libdir}/libevdocument.so
+%attr(755,root,root) %{_libdir}/libevview.so
+%{_libdir}/libevdocument.la
+%{_libdir}/libevview.la
+%{_includedir}/evince
+%{_pkgconfigdir}/evince-document-*.pc
+%{_pkgconfigdir}/evince-view-*.pc
 
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/evince
+%{_gtkdocdir}/libevdocument
+%{_gtkdocdir}/libevview
 %endif
 
 %files -n nautilus-extension-evince
