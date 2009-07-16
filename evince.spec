@@ -6,12 +6,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.26.2
+Version:	2.27.4
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.26/%{name}-%{version}.tar.bz2
-# Source0-md5:	ed8b9fb5c5d6feafd19f0114b736c9ef
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.27/%{name}-%{version}.tar.bz2
+# Source0-md5:	bfd1488d0c8d41d9c54bc2b69946bb65
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	autoconf >= 2.57
@@ -34,7 +34,7 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	nautilus-devel >= 2.26.0
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.8.0
+BuildRequires:	poppler-glib-devel >= 0.11.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -107,10 +107,10 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 %setup -q
 
 %build
-%{__gnome_doc_prepare}
+%{__gtkdocize}
 %{__intltoolize}
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -174,6 +174,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/evince
+%attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
 %attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libevdocument.so.1
