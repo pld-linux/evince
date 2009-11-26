@@ -71,6 +71,7 @@ xpdf jedną prostą aplikacją.
 Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 Requires:	gtk+2-devel >= 2:2.16.0
 
 %description devel
