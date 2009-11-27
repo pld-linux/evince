@@ -18,6 +18,7 @@ BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.9
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
 BuildRequires:	djvulibre-devel >= 3.5.17
+BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.20.0
 BuildRequires:	gnome-common >= 2.24.0
