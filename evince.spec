@@ -109,6 +109,8 @@ Pokazuje właściwości dokumentu Evince w Nautilusie.
 
 %prep
 %setup -q
+sed -i s#^en@shaw## po/LINGUAS
+rm po/en@shaw.po
 
 %build
 %{__gtkdocize}
