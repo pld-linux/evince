@@ -6,12 +6,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.28.2
-Release:	3
+Version:	2.29.91
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.28/%{name}-%{version}.tar.bz2
-# Source0-md5:	f8b9a1ee6fe8cd0a1b7a51ad4db96e59
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.29/%{name}-%{version}.tar.bz2
+# Source0-md5:	5d7ac0e6ad6707e01b82f5b071321cb4
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	autoconf >= 2.57
@@ -34,6 +34,7 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	nautilus-devel >= 2.26.0
+BuildRequires:	openjpeg-devel
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.11.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
@@ -54,7 +55,7 @@ Conflicts:	evince-gtk
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/evince/1/backends
+%define		backendsdir	%{_libdir}/evince/2/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -179,12 +180,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
+%attr(755,root,root) %{_libdir}/evince-convert-metadata
+%attr(755,root,root) %{_libdir}/evinced
 %attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.1
+%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.2
 %attr(755,root,root) %{_libdir}/libevview.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview.so.1
+%attr(755,root,root) %ghost %{_libdir}/libevview.so.2
 %dir %{_libdir}/evince
-%dir %{_libdir}/evince/1
+%dir %{_libdir}/evince/2
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
@@ -208,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-ps.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
+%{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/%{name}
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
@@ -228,8 +232,8 @@ rm -rf $RPM_BUILD_ROOT
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/evince
-%{_gtkdocdir}/libevdocument
-%{_gtkdocdir}/libevview
+%{_gtkdocdir}/libevdocument-2.29
+%{_gtkdocdir}/libevview-2.29
 %endif
 
 %files -n nautilus-extension-evince
