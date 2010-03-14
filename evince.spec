@@ -6,16 +6,16 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.29.91
+Version:	2.29.92
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.29/%{name}-%{version}.tar.bz2
-# Source0-md5:	5d7ac0e6ad6707e01b82f5b071321cb4
+# Source0-md5:	8d8398caf457854f853ebb03ebe55d5a
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake >= 1:1.9
+BuildRequires:	automake >= 1:1.10
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
@@ -24,9 +24,9 @@ BuildRequires:	glib2-devel >= 1:2.20.0
 BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-doc-utils >= 0.14.0
 BuildRequires:	gnome-icon-theme >= 2.26.0
-BuildRequires:	gnome-keyring-devel >= 2.26.0
+BuildRequires:	libgnome-keyring-devel >= 2.26.0
 BuildRequires:	gtk+2-devel >= 2:2.16.0
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.9}
+%{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libspectre-devel >= 0.2.0
@@ -34,9 +34,8 @@ BuildRequires:	libtiff-devel
 BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	nautilus-devel >= 2.26.0
-BuildRequires:	openjpeg-devel
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.11.0
+BuildRequires:	poppler-glib-devel >= 0.12.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -49,7 +48,7 @@ Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
 Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.16.0
-Requires:	poppler-glib >= 0.8.0
+Requires:	poppler-glib >= 0.12.0
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
