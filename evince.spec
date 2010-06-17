@@ -7,7 +7,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	2.30.1
-Release:	1
+Release:	1.1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.30/%{name}-%{version}.tar.bz2
@@ -106,6 +106,30 @@ Shows Evince document properties in Nautilus.
 %description -n nautilus-extension-evince -l pl.UTF-8
 Pokazuje właściwości dokumentu Evince w Nautilusie.
 
+%package backend-dvi
+Summary:	View DVI documents with evince
+Group:		X11/Applications
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description backend-dvi
+View DVI documents with evince.
+
+%package backend-djvu
+Summary:	View DJVu documents with evince
+Group:		X11/Applications
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description backend-djvu
+View DJVu documents with evince.
+
+%package backend-pdf
+Summary:	View PDF documents with evince
+Group:		X11/Applications
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+
+%description backend-pdf
+View PDF documents with evince.
+
 %prep
 %setup -q
 sed -i s#^en@shaw## po/LINGUAS
@@ -154,8 +178,6 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 %gconf_schema_install evince.schemas
 %gconf_schema_install evince-thumbnailer-comics.schemas
-%gconf_schema_install evince-thumbnailer-djvu.schemas
-%gconf_schema_install evince-thumbnailer-dvi.schemas
 %gconf_schema_install evince-thumbnailer.schemas
 %gconf_schema_install evince-thumbnailer-ps.schemas
 %update_desktop_database_post
@@ -165,12 +187,40 @@ rm -rf $RPM_BUILD_ROOT
 %preun
 %gconf_schema_uninstall evince.schemas
 %gconf_schema_uninstall evince-thumbnailer-comics.schemas
-%gconf_schema_uninstall evince-thumbnailer-djvu.schemas
-%gconf_schema_uninstall evince-thumbnailer-dvi.schemas
 %gconf_schema_uninstall evince-thumbnailer.schemas
 %gconf_schema_uninstall evince-thumbnailer-ps.schemas
 
 %postun
+/sbin/ldconfig
+%update_desktop_database_postun
+%scrollkeeper_update_postun
+%update_icon_cache hicolor
+
+%post backend-dvi
+%gconf_schema_install evince-thumbnailer-dvi.schemas
+
+%preun backend-dvi
+%gconf_schema_uninstall evince-thumbnailer-dvi.schemas
+
+%postun backend-dvi
+/sbin/ldconfig
+%update_desktop_database_postun
+%scrollkeeper_update_postun
+%update_icon_cache hicolor
+
+%post backend-djvu
+%gconf_schema_install evince-thumbnailer-djvu.schemas
+
+%preun backend-djvu
+%gconf_schema_uninstall evince-thumbnailer-djvu.schemas
+
+%postun backend-djvu
+/sbin/ldconfig
+%update_desktop_database_postun
+%scrollkeeper_update_postun
+%update_icon_cache hicolor
+
+%postun backend-pdf
 /sbin/ldconfig
 %update_desktop_database_postun
 %scrollkeeper_update_postun
@@ -193,14 +243,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
-%attr(755,root,root) %{backendsdir}/libdjvudocument.so
-%{backendsdir}/djvudocument.evince-backend
-%attr(755,root,root) %{backendsdir}/libdvidocument.so*
-%{backendsdir}/dvidocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libimpressdocument.so
 %{backendsdir}/impressdocument.evince-backend
-%attr(755,root,root) %{backendsdir}/libpdfdocument.so
-%{backendsdir}/pdfdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libpixbufdocument.so
 %{backendsdir}/pixbufdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libpsdocument.so
@@ -209,8 +253,6 @@ rm -rf $RPM_BUILD_ROOT
 %{backendsdir}/tiffdocument.evince-backend
 %{_sysconfdir}/gconf/schemas/evince.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-comics.schemas
-%{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
-%{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-ps.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
@@ -219,6 +261,20 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/evince.desktop
 %{_iconsdir}/hicolor/*/*/*.png
 %{_iconsdir}/hicolor/*/*/*.svg
+
+%files backend-dvi
+%attr(755,root,root) %{backendsdir}/libdvidocument.so*
+%{backendsdir}/dvidocument.evince-backend
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
+
+%files backend-djvu
+%attr(755,root,root) %{backendsdir}/libdjvudocument.so*
+%{backendsdir}/djvudocument.evince-backend
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
+
+%files backend-pdf
+%attr(755,root,root) %{backendsdir}/libpdfdocument.so*
+%{backendsdir}/pdfdocument.evince-backend
 
 %files devel
 %defattr(644,root,root,755)
