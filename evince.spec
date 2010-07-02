@@ -6,12 +6,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.30.1
-Release:	1.1
+Version:	2.30.3
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.30/%{name}-%{version}.tar.bz2
-# Source0-md5:	84eb6c8bb460edd382025fdd29c3bc64
+# Source0-md5:	516748897113cd4e9638c49245c555c2
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	autoconf >= 2.57
@@ -46,9 +46,11 @@ Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	gtk+2
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
-Requires:	djvulibre >= 3.5.17
 Requires:	gtk+2 >= 2:2.16.0
-Requires:	poppler-glib >= 0.12.0
+Suggests:	evince-backend-djvu
+Suggests:	evince-backend-dvi
+Suggests:	evince-backend-pdf
+Suggests:	evince-backend-ps
 Conflicts:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -107,36 +109,42 @@ Shows Evince document properties in Nautilus.
 Pokazuje właściwości dokumentu Evince w Nautilusie.
 
 %package backend-djvu
-Summary:	View DJVu documents with evince
+Summary:	View DJVu documents with Evince
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires(post,preun):	GConf2
+Requires:	%{name} = %{version}-%{release}
+Requires:	djvulibre >= 3.5.17
 
 %description backend-djvu
-View DJVu documents with evince.
+View DJVu documents with Evince.
 
 %package backend-dvi
-Summary:	View DVI documents with evince
+Summary:	View DVI documents with Evince
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires(post,preun):	GConf2
+Requires:	%{name} = %{version}-%{release}
 
 %description backend-dvi
-View DVI documents with evince.
+View DVI documents with Evince.
 
 %package backend-pdf
-Summary:	View PDF documents with evince
+Summary:	View PDF documents with Evince
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires(post,preun):	GConf2
+Requires:	%{name} = %{version}-%{release}
+Requires:	poppler-glib >= 0.12.0
 
 %description backend-pdf
-View PDF documents with evince.
+View PDF documents with Evince.
 
 %package backend-ps
-Summary:	View Postscript documents with evince
+Summary:	View Postscript documents with Evince
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires(post,preun):	GConf2
+Requires:	%{name} = %{version}-%{release}
 
 %description backend-ps
-View Postscript documents with evince.
+View Postscript documents with Evince.
 
 %prep
 %setup -q
@@ -208,42 +216,17 @@ rm -rf $RPM_BUILD_ROOT
 %preun backend-djvu
 %gconf_schema_uninstall evince-thumbnailer-djvu.schemas
 
-%postun backend-djvu
-/sbin/ldconfig
-%update_desktop_database_postun
-%scrollkeeper_update_postun
-%update_icon_cache hicolor
-
 %post backend-dvi
 %gconf_schema_install evince-thumbnailer-dvi.schemas
 
 %preun backend-dvi
 %gconf_schema_uninstall evince-thumbnailer-dvi.schemas
 
-%postun backend-dvi
-/sbin/ldconfig
-%update_desktop_database_postun
-%scrollkeeper_update_postun
-%update_icon_cache hicolor
-
-%postun backend-pdf
-/sbin/ldconfig
-%update_desktop_database_postun
-%scrollkeeper_update_postun
-%update_icon_cache hicolor
-
 %post backend-ps
-/sbin/ldconfig
 %gconf_schema_install evince-thumbnailer-ps.schemas
 
 %preun backend-ps
 %gconf_schema_uninstall evince-thumbnailer-ps.schemas
-
-%postun backend-ps
-/sbin/ldconfig
-%update_desktop_database_postun
-%scrollkeeper_update_postun
-%update_icon_cache hicolor
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -280,13 +263,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files backend-djvu
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libdjvudocument.so*
+%attr(755,root,root) %{backendsdir}/libdjvudocument.so
 %{backendsdir}/djvudocument.evince-backend
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-djvu.schemas
 
 %files backend-dvi
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libdvidocument.so*
+%attr(755,root,root) %{backendsdir}/libdvidocument.so
 %{backendsdir}/dvidocument.evince-backend
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-dvi.schemas
 
@@ -294,12 +277,12 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libpsdocument.so
 %{backendsdir}/psdocument.evince-backend
+%{_sysconfdir}/gconf/schemas/evince-thumbnailer-ps.schemas
 
 %files backend-pdf
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libpdfdocument.so*
+%attr(755,root,root) %{backendsdir}/libpdfdocument.so
 %{backendsdir}/pdfdocument.evince-backend
-%{_sysconfdir}/gconf/schemas/evince-thumbnailer-ps.schemas
 
 %files devel
 %defattr(644,root,root,755)
