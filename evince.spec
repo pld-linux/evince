@@ -6,25 +6,26 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.30.3
-Release:	4
+Version:	2.32.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.30/%{name}-%{version}.tar.bz2
-# Source0-md5:	516748897113cd4e9638c49245c555c2
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.32/%{name}-%{version}.tar.bz2
+# Source0-md5:	ebc3ce6df8dcbf29cb9492f8dd031319
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	GConf2-devel >= 2.24.0
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
+BuildRequires:	cairo-devel >= 1.10.0
 %{?with_dbus:BuildRequires:	dbus-glib-devel >= 0.74}
 BuildRequires:	djvulibre-devel >= 3.5.17
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-devel
-BuildRequires:	glib2-devel >= 1:2.20.0
+BuildRequires:	glib2-devel >= 1:2.26.0
 BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-doc-utils >= 0.14.0
 BuildRequires:	gnome-icon-theme >= 2.26.0
-BuildRequires:	gtk+2-devel >= 2:2.16.0
+BuildRequires:	gtk+2-devel >= 2:2.22.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
@@ -35,7 +36,7 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	nautilus-devel >= 2.26.0
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.12.0
+BuildRequires:	poppler-glib-devel >= 0.14.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.197
 BuildRequires:	scrollkeeper
@@ -43,10 +44,12 @@ BuildRequires:	t1lib-devel
 BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	glib2 >= 1:2.26.0
 Requires(post,postun):	gtk+2
 Requires(post,postun):	scrollkeeper
 Requires(post,preun):	GConf2
-Requires:	gtk+2 >= 2:2.16.0
+Requires:	dconf
+Requires:	gtk+2 >= 2:2.22.0
 Suggests:	evince-backend-djvu
 Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
@@ -56,7 +59,7 @@ Conflicts:	evince-gtk
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/evince/2/backends
+%define		backendsdir	%{_libdir}/evince/3/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -75,7 +78,7 @@ Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+2-devel >= 2:2.16.0
+Requires:	gtk+2-devel >= 2:2.22.0
 
 %description devel
 Header files for Evince.
@@ -132,7 +135,7 @@ Summary:	View PDF documents with Evince
 Group:		X11/Applications
 Requires(post,preun):	GConf2
 Requires:	%{name} = %{version}-%{release}
-Requires:	poppler-glib >= 0.12.0
+Requires:	poppler-glib >= 0.14.0
 
 %description backend-pdf
 View PDF documents with Evince.
@@ -192,15 +195,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/ldconfig
-%gconf_schema_install evince.schemas
 %gconf_schema_install evince-thumbnailer-comics.schemas
 %gconf_schema_install evince-thumbnailer.schemas
 %update_desktop_database_post
 %scrollkeeper_update_post
 %update_icon_cache hicolor
+glib-compile-schemas %{_datadir}/glib-2.0/schemas
 
 %preun
-%gconf_schema_uninstall evince.schemas
 %gconf_schema_uninstall evince-thumbnailer-comics.schemas
 %gconf_schema_uninstall evince-thumbnailer.schemas
 
@@ -209,6 +211,7 @@ rm -rf $RPM_BUILD_ROOT
 %update_desktop_database_postun
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
+glib-compile-schemas %{_datadir}/glib-2.0/schemas
 
 %post backend-djvu
 %gconf_schema_install evince-thumbnailer-djvu.schemas
@@ -237,11 +240,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/evince-convert-metadata
 %attr(755,root,root) %{_libdir}/evinced
 %attr(755,root,root) %{_libdir}/libevdocument.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.2
+%attr(755,root,root) %ghost %{_libdir}/libevdocument.so.3
 %attr(755,root,root) %{_libdir}/libevview.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview.so.2
+%attr(755,root,root) %ghost %{_libdir}/libevview.so.3
 %dir %{_libdir}/evince
-%dir %{_libdir}/evince/2
+%dir %{_libdir}/evince/3
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
@@ -251,10 +254,11 @@ rm -rf $RPM_BUILD_ROOT
 %{backendsdir}/pixbufdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libtiffdocument.so
 %{backendsdir}/tiffdocument.evince-backend
-%{_sysconfdir}/gconf/schemas/evince.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer-comics.schemas
 %{_sysconfdir}/gconf/schemas/evince-thumbnailer.schemas
+%{_datadir}/GConf/gsettings/evince.convert
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
+%{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/%{name}
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
