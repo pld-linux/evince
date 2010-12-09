@@ -7,7 +7,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	2.32.0
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.32/%{name}-%{version}.tar.bz2
@@ -38,7 +38,7 @@ BuildRequires:	nautilus-devel >= 2.26.0
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.14.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
-BuildRequires:	rpmbuild(macros) >= 1.197
+BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	scrollkeeper
 BuildRequires:	t1lib-devel
 BuildRequires:	xorg-lib-libSM-devel
@@ -200,7 +200,7 @@ rm -rf $RPM_BUILD_ROOT
 %update_desktop_database_post
 %scrollkeeper_update_post
 %update_icon_cache hicolor
-glib-compile-schemas %{_datadir}/glib-2.0/schemas
+%glib_compile_schemas
 
 %preun
 %gconf_schema_uninstall evince-thumbnailer-comics.schemas
@@ -211,7 +211,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas
 %update_desktop_database_postun
 %scrollkeeper_update_postun
 %update_icon_cache hicolor
-glib-compile-schemas %{_datadir}/glib-2.0/schemas
+%glib_compile_schemas
 
 %post backend-djvu
 %gconf_schema_install evince-thumbnailer-djvu.schemas
