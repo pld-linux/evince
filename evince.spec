@@ -1,8 +1,12 @@
+# TODO
+# - evince.desktop provides mimetypes for all possible choices, yet some of
+#   them are in subpackages (backend-foo). multiple .desktop files is possible
+#   for same application?
 #
 # Conditional build:
 %bcond_without	dbus		# disable DBUS support
 %bcond_without	apidocs		# disable gtk-doc
-#
+
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
