@@ -223,6 +223,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/%{name}
+%dir %{_datadir}/thumbnailers
 %{_datadir}/thumbnailers/evince.thumbnailer
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
