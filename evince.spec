@@ -34,6 +34,7 @@ BuildRequires:	gtk+3-devel >= 3.0.0
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libgnome-keyring-devel >= 2.26.0
+#BuildRequires:	libgxps-devel >= 0.0.1
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
 BuildRequires:	libtool
@@ -44,6 +45,7 @@ BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
+BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
@@ -171,6 +173,7 @@ View Postscript documents with Evince.
 	--enable-nautilus \
 	--enable-pdf \
 	--enable-tiff \
+	--with-smclient-backend=xsmp \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
