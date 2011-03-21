@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	2.91.90
+Version:	2.91.92
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/2.91/%{name}-%{version}.tar.bz2
-# Source0-md5:	ad5273fbb4639962605dce2854cdc36e
+# Source0-md5:	402895c0b49b7798c6a7eff94decd70a
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -51,6 +51,7 @@ BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.26.0
 Requires:	dconf
+Requires:	gnome-icon-theme >= 2.26.0
 Requires:	gsettings-desktop-schemas
 Requires:	gtk+3 >= 3.0.0
 Requires:	gtk-update-icon-cache
@@ -173,7 +174,7 @@ View Postscript documents with Evince.
 	--enable-nautilus \
 	--enable-pdf \
 	--enable-tiff \
-	--with-smclient-backend=xsmp \
+	--with-smclient=xsmp \
 	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
