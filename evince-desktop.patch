@@ -1,0 +1,10 @@
+--- evince-3.0.2/data/evince.desktop.in.in~	2010-07-14 09:54:39.000000000 +0200
++++ evince-3.0.2/data/evince.desktop.in.in	2011-07-19 13:37:05.618257924 +0200
+@@ -7,7 +7,6 @@
+ Terminal=false
+ Type=Application
+ Icon=evince
+-NoDisplay=true
+ X-GNOME-DocPath=
+ X-GNOME-Bugzilla-Bugzilla=GNOME
+ X-GNOME-Bugzilla-Product=evince
