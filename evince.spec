@@ -10,13 +10,14 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.0.2
-Release:	3
+Version:	3.1.2
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	4eff790d9ba7a0d9e8eda5b4bb91c92b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.1/%{name}-%{version}.tar.bz2
+# Source0-md5:	9c06e8a99204aba11da28e03a03b6823
 Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-linking.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -156,6 +157,7 @@ View Postscript documents with Evince.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__gtkdocize}
@@ -172,6 +174,7 @@ View Postscript documents with Evince.
 	--enable-comics \
 	--enable-djvu \
 	--enable-dvi \
+	--enable-introspection \
 	--enable-t1lib \
 	--enable-nautilus \
 	--enable-pdf \
@@ -213,7 +216,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
-%attr(755,root,root) %{_libdir}/evinced
+%attr(755,root,root) %{_libexecdir}/evinced
 %attr(755,root,root) %{_libdir}/libevdocument3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.3
 %attr(755,root,root) %{_libdir}/libevview3.so.*.*.*
@@ -234,6 +237,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
 %{_iconsdir}/hicolor/*/*/*.png
+%{_libdir}/girepository-1.0/*.typelib
 
 %files backend-djvu
 %defattr(644,root,root,755)
@@ -262,6 +266,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/evince
 %{_pkgconfigdir}/evince-document-*.pc
 %{_pkgconfigdir}/evince-view-*.pc
+%{_datadir}/gir-1.0/*.gir
 
 %if %{with apidocs}
 %files apidocs
