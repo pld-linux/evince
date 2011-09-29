@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.0.2
+Version:	3.2.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	4eff790d9ba7a0d9e8eda5b4bb91c92b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.2/%{name}-%{version}.tar.xz
+# Source0-md5:	04e0ba0947ad8181a62a7fdf67aff332
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-linking.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -28,10 +28,10 @@ BuildRequires:	gettext-devel
 BuildRequires:	glib2-devel >= 1:2.26.0
 BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-doc-utils >= 0.14.0
-BuildRequires:	gnome-icon-theme >= 3.0.0
+BuildRequires:	gnome-icon-theme >= 3.2.0
 BuildRequires:	gobject-introspection-devel >= 0.6.0
 BuildRequires:	gsettings-desktop-schemas-devel
-BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	gtk+3-devel >= 3.0.2
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
@@ -47,15 +47,17 @@ BuildRequires:	poppler-glib-devel >= 0.16.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
+BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
+BuildRequires:	xz
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.26.0
 Requires:	dconf
-Requires:	gnome-icon-theme >= 3.0.0
+Requires:	gnome-icon-theme >= 3.2.0
 Requires:	gsettings-desktop-schemas
-Requires:	gtk+3 >= 3.0.0
+Requires:	gtk+3 >= 3.0.2
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Suggests:	evince-backend-djvu
@@ -87,7 +89,7 @@ Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+3-devel >= 3.0.0
+Requires:	gtk+3-devel >= 3.0.2
 
 %description devel
 Header files for Evince.
