@@ -10,11 +10,11 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.2.1
-Release:	7
+Version:	3.3.90
+Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.2/%{name}-%{version}.tar.xz
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.3/%{name}-%{version}.tar.xz
 # Source0-md5:	8c01b6741709b8e32b800b71820648ac
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-linking.patch
@@ -43,7 +43,7 @@ BuildRequires:	libtool
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	nautilus-devel >= 3.0.0
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.16.0
+BuildRequires:	poppler-glib-devel >= 0.18.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
@@ -143,7 +143,7 @@ View DVI documents with Evince.
 Summary:	View PDF documents with Evince
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	poppler-glib >= 0.16.0
+Requires:	poppler-glib >= 0.18.0
 
 %description backend-pdf
 View PDF documents with Evince.
