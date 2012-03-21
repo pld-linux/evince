@@ -10,7 +10,7 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.3.90
+Version:	3.3.92
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
@@ -70,7 +70,7 @@ Conflicts:	evince-gtk
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		backendsdir	%{_libdir}/evince/3/backends
+%define		backendsdir	%{_libdir}/evince/4/backends
 
 %description
 Evince is a document viewer for multiple document formats like pdf,
@@ -220,11 +220,11 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
 %attr(755,root,root) %{_libexecdir}/evinced
 %attr(755,root,root) %{_libdir}/libevdocument3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.3
+%attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.4
 %attr(755,root,root) %{_libdir}/libevview3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libevview3.so.3
 %dir %{_libdir}/evince
-%dir %{_libdir}/evince/3
+%dir %{_libdir}/evince/4
 %dir %{backendsdir}
 %attr(755,root,root) %{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
@@ -236,7 +236,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/%{name}
-%dir %{_datadir}/thumbnailers
 %{_datadir}/thumbnailers/evince.thumbnailer
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
