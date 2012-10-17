@@ -171,7 +171,7 @@ View Postscript documents with Evince.
 %{__autoheader}
 %{__automake}
 %configure \
-	%{?with_apidocs:--disable-gtk-doc} \
+	%{?with_apidocs:--enable-gtk-doc} \
 	--disable-static \
 	--disable-silent-rules \
 	--enable-comics \
