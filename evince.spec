@@ -10,14 +10,13 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.6.1
+Version:	3.8.0
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.6/%{name}-%{version}.tar.xz
-# Source0-md5:	e03d1158eeba2f5c693e1a1db58ed1ec
-Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-linking.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.8/%{name}-%{version}.tar.xz
+# Source0-md5:	1f48bc498d1840c08fedb91b21687539
+Patch0:		%{name}-linking.patch
 URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -30,15 +29,15 @@ BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-icon-theme >= 3.2.0
 BuildRequires:	gobject-introspection-devel >= 0.6.0
 BuildRequires:	gsettings-desktop-schemas-devel
-BuildRequires:	gtk+3-devel >= 3.0.2
+BuildRequires:	gtk+3-devel >= 3.7.5
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
-BuildRequires:	libgnome-keyring-devel >= 2.26.0
 BuildRequires:	libgxps-devel >= 0.2.1
+BuildRequires:	libsecret-devel >= 0.5
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libtiff-devel
-BuildRequires:	libtool
+BuildRequires:	libtool >= 2.2
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	nautilus-devel >= 3.0.0
 BuildRequires:	pkgconfig
@@ -53,12 +52,12 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.26.0
+Requires(post,postun):	glib2 >= 1:2.34.0
 Requires:	dconf
 Requires:	glib2 >= 1:2.34.0
 Requires:	gnome-icon-theme >= 3.2.0
 Requires:	gsettings-desktop-schemas
-Requires:	gtk+3 >= 3.0.2
+Requires:	gtk+3 >= 3.7.5
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Suggests:	evince-backend-djvu
@@ -90,7 +89,7 @@ Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	gtk+3-devel >= 3.0.2
+Requires:	gtk+3-devel >= 3.7.5
 
 %description devel
 Header files for Evince.
@@ -160,7 +159,6 @@ View Postscript documents with Evince.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__gtkdocize}
@@ -196,7 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{backendsdir}/*.la
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-3.0/*.la
 
-%find_lang %{name} --with-gnome --with-omf
+%find_lang %{name} --with-gnome
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -240,6 +238,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/thumbnailers/evince.thumbnailer
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
+%{_desktopdir}/evince-previewer.desktop
 %{_iconsdir}/hicolor/*/*/*.png
 %{_libdir}/girepository-1.0/*.typelib
 
