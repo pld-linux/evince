@@ -70,7 +70,7 @@ Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
 Suggests:	evince-backend-ps
 Suggests:	gtk+3-cups
-Conflicts:	evince-gtk
+Obsoletes:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
