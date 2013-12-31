@@ -11,7 +11,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	3.10.3
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.10/%{name}-%{version}.tar.xz
@@ -55,12 +55,11 @@ BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.36.0
+Requires:	%{name}-libs = %{version}-%{release}
 Requires:	cairo >= 1.10.0
 Requires:	dconf
-Requires:	glib2 >= 1:2.36.0
 Requires:	gnome-icon-theme >= 3.2.0
 Requires:	gsettings-desktop-schemas
-Requires:	gtk+3 >= 3.8.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	libsecret >= 0.5
@@ -89,11 +88,26 @@ postscript i wielu innych. W zamierzeniach program ma zastąpić
 przeglądarki dokumentów dla środowiska GNOME, takie jak ggv, gpdf i
 xpdf jedną prostą aplikacją.
 
+%package libs
+Summary:	Evince shared libraries
+Summary(pl.UTF-8):	Biblioteki współdzielone Evince
+Group:		X11/Libraries
+Requires:	glib2 >= 1:2.36.0
+Requires:	gtk+3 >= 3.8.0
+Conflicts:	evince < 3.10.3-2
+
+%description libs
+Evince shared libraries.
+
+%description libs -l pl.UTF-8
+Biblioteki współdzielone Evince.
+
 %package devel
 Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name}-libs = %{version}-%{release}
+Requires:	glib2-devel >= 1:2.36.0
 Requires:	gtk+3-devel >= 3.8.0
 
 %description devel
@@ -239,16 +253,17 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
 %update_desktop_database_post
 %update_icon_cache hicolor
 %glib_compile_schemas
 
 %postun
-/sbin/ldconfig
 %update_desktop_database_postun
 %update_icon_cache hicolor
 %glib_compile_schemas
+
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -257,12 +272,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
 %attr(755,root,root) %{_libexecdir}/evinced
-%attr(755,root,root) %{_libdir}/libevdocument3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.4
-%attr(755,root,root) %{_libdir}/libevview3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview3.so.3
-%{_libdir}/girepository-1.0/EvinceDocument-3.0.typelib
-%{_libdir}/girepository-1.0/EvinceView-3.0.typelib
 %dir %{_libdir}/evince
 %dir %{_libdir}/evince/4
 %dir %{backendsdir}
@@ -279,6 +288,33 @@ rm -rf $RPM_BUILD_ROOT
 %{_desktopdir}/evince.desktop
 %{_desktopdir}/evince-previewer.desktop
 %{_iconsdir}/hicolor/*x*/apps/evince.png
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libevdocument3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.4
+%attr(755,root,root) %{_libdir}/libevview3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libevview3.so.3
+%{_libdir}/girepository-1.0/EvinceDocument-3.0.typelib
+%{_libdir}/girepository-1.0/EvinceView-3.0.typelib
+
+%files devel
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libevdocument3.so
+%attr(755,root,root) %{_libdir}/libevview3.so
+%{_datadir}/gir-1.0/EvinceDocument-3.0.gir
+%{_datadir}/gir-1.0/EvinceView-3.0.gir
+%{_includedir}/evince
+%{_pkgconfigdir}/evince-document-3.0.pc
+%{_pkgconfigdir}/evince-view-3.0.pc
+
+%if %{with apidocs}
+%files apidocs
+%defattr(644,root,root,755)
+%{_gtkdocdir}/evince
+%{_gtkdocdir}/libevdocument-3.0
+%{_gtkdocdir}/libevview-3.0
+%endif
 
 %files backend-djvu
 %defattr(644,root,root,755)
@@ -304,24 +340,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libxpsdocument.so
 %{backendsdir}/xpsdocument.evince-backend
-
-%files devel
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libevdocument3.so
-%attr(755,root,root) %{_libdir}/libevview3.so
-%{_datadir}/gir-1.0/EvinceDocument-3.0.gir
-%{_datadir}/gir-1.0/EvinceView-3.0.gir
-%{_includedir}/evince
-%{_pkgconfigdir}/evince-document-3.0.pc
-%{_pkgconfigdir}/evince-view-3.0.pc
-
-%if %{with apidocs}
-%files apidocs
-%defattr(644,root,root,755)
-%{_gtkdocdir}/evince
-%{_gtkdocdir}/libevdocument-3.0
-%{_gtkdocdir}/libevview-3.0
-%endif
 
 %if %{with nautilus}
 %files -n nautilus-extension-evince
