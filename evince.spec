@@ -231,8 +231,7 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 	--disable-static \
 	--enable-t1lib \
 	--enable-tiff \
-	--with-html-dir=%{_gtkdocdir} \
-	--with-smclient=xsmp
+	--with-html-dir=%{_gtkdocdir}
 %{__make}
 
 %install
