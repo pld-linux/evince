@@ -11,14 +11,14 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	3.14.0
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.14/%{name}-%{version}.tar.xz
 # Source0-md5:	feaf7382d4829a8ea52bfbaae106b9da
 Patch0:		%{name}-linking.patch
+Patch1:		icon-theme.patch
 URL:		http://www.gnome.org/projects/evince/
-BuildRequires:	adwaita-icon-theme >= 2.17.1
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
@@ -223,6 +223,7 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__gtkdocize}
