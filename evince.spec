@@ -11,7 +11,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	3.14.0
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.14/%{name}-%{version}.tar.xz
@@ -280,10 +280,10 @@ rm -rf $RPM_BUILD_ROOT
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
 
-%post
+%post -n browser-plugin-evince
 %update_browser_plugins
 
-%postun
+%postun -n browser-plugin-evince
 if [ "$1" = 0 ]; then
 	%update_browser_plugins
 fi
