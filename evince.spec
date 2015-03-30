@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.14.2
+Version:	3.16.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.14/%{name}-%{version}.tar.xz
-# Source0-md5:	7f7ad8f3ddef0b09d8b588e911152ecc
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.16/%{name}-%{version}.tar.xz
+# Source0-md5:	e2312a257df709e84bc2be17db45a7f1
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -30,7 +30,7 @@ BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-desktop-devel >= 3.0
 BuildRequires:	gobject-introspection-devel >= 1.0
 BuildRequires:	gsettings-desktop-schemas-devel
-BuildRequires:	gtk+3-devel >= 3.12.0
+BuildRequires:	gtk+3-devel >= 3.15.3
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
@@ -68,7 +68,7 @@ Suggests:	evince-backend-djvu
 Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
 Suggests:	evince-backend-ps
-Suggests:	gtk+3-cups >= 3.12.0
+Suggests:	gtk+3-cups >= 3.15.3
 Obsoletes:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -93,7 +93,7 @@ Summary:	Evince shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone Evince
 Group:		X11/Libraries
 Requires:	glib2 >= 1:2.36.0
-Requires:	gtk+3 >= 3.12.0
+Requires:	gtk+3 >= 3.15.3
 Conflicts:	evince < 3.10.3-2
 
 %description libs
@@ -108,7 +108,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36.0
-Requires:	gtk+3-devel >= 3.12.0
+Requires:	gtk+3-devel >= 3.15.3
 
 %description devel
 Header files for Evince.
