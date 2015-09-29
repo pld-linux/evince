@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.16.1
+Version:	3.18.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.16/%{name}-%{version}.tar.xz
-# Source0-md5:	6a5e4aa41d7026eb477290416d9f2a5b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.18/%{name}-%{version}.tar.xz
+# Source0-md5:	9f857c73be31ad053bc3b6e4ac10c428
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -30,7 +30,9 @@ BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-desktop-devel >= 3.0
 BuildRequires:	gobject-introspection-devel >= 1.0
 BuildRequires:	gsettings-desktop-schemas-devel
-BuildRequires:	gtk+3-devel >= 3.15.3
+BuildRequires:	gstreamer-devel >= 1.0
+BuildRequires:	gstreamer-plugins-base-devel >= 1.0
+BuildRequires:	gtk+3-devel >= 3.16.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
 BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
@@ -93,7 +95,7 @@ Summary:	Evince shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone Evince
 Group:		X11/Libraries
 Requires:	glib2 >= 1:2.36.0
-Requires:	gtk+3 >= 3.15.3
+Requires:	gtk+3 >= 3.16.0
 Conflicts:	evince < 3.10.3-2
 
 %description libs
@@ -108,7 +110,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36.0
-Requires:	gtk+3-devel >= 3.15.3
+Requires:	gtk+3-devel >= 3.16.0
 
 %description devel
 Header files for Evince.
