@@ -70,7 +70,7 @@ Suggests:	evince-backend-djvu
 Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
 Suggests:	evince-backend-ps
-Suggests:	gtk+3-cups >= 3.15.3
+Suggests:	gtk+3-cups >= 3.16.0
 Obsoletes:	evince-gtk
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
