@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.18.2
-Release:	2
+Version:	3.20.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.18/%{name}-%{version}.tar.xz
-# Source0-md5:	c39af6b8b1c44d4393ef8ac9dab99c0b
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.20/%{name}-%{version}.tar.xz
+# Source0-md5:	8daa1fd3e3a6f801e2c64ad9c3fffdfe
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -45,7 +45,7 @@ BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libxml2-progs >= 1:2.6.31
 %{?with_nautilus:BuildRequires:	nautilus-devel >= 3.0.0}
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.24.0
+BuildRequires:	poppler-glib-devel >= 0.33.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
 BuildRequires:	t1lib-devel
@@ -315,10 +315,12 @@ fi
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/%{name}
 %{_datadir}/thumbnailers/evince.thumbnailer
+%{systemduserunitdir}/evince.service
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/evince.desktop
 %{_desktopdir}/evince-previewer.desktop
 %{_iconsdir}/hicolor/*x*/apps/evince.png
+%{_iconsdir}/hicolor/symbolic/apps/evince-symbolic.svg
 
 %files libs
 %defattr(644,root,root,755)
