@@ -22,7 +22,7 @@ URL:		http://www.gnome.org/projects/evince/
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
-BuildRequires:	djvulibre-devel >= 3.5.17
+BuildRequires:	djvulibre-devel >= 3.5.22
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.36.0
@@ -151,7 +151,7 @@ Summary:	View DjVu documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów DjVu przy użyciu Evince
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	djvulibre >= 3.5.17
+Requires:	djvulibre >= 3.5.22
 
 %description backend-djvu
 View DjVu documents with Evince.
