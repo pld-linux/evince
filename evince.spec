@@ -39,6 +39,7 @@ BuildRequires:	kpathsea-devel
 BuildRequires:	libgxps-devel >= 0.2.1
 BuildRequires:	libsecret-devel >= 0.5
 BuildRequires:	libspectre-devel >= 0.2.0
+BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel >= 3.6
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libxml2-devel >= 1:2.6.31
