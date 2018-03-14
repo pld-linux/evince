@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.24.1
+Version:	3.28.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.24/%{name}-%{version}.tar.xz
-# Source0-md5:	ea19a7f5903caa1ec9688d98051cdb0d
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.28/%{name}-%{version}.tar.xz
+# Source0-md5:	96f8372c376e7062bc3b833099f6664f
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -24,6 +24,7 @@ BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	djvulibre-devel >= 3.5.22
 BuildRequires:	docbook-dtd412-xml
+BuildRequires:	gdk-pixbuf2-devel >= 2.36.5
 BuildRequires:	gettext-tools
 BuildRequires:	glib2-devel >= 1:2.36.0
 BuildRequires:	gnome-common >= 2.24.0
@@ -62,6 +63,7 @@ Requires(post,postun):	glib2 >= 1:2.36.0
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	cairo >= 1.10.0
 Requires:	dconf
+Requires:	gdk-pixbuf2 >= 2.36.5
 Requires:	gsettings-desktop-schemas
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
@@ -309,9 +311,9 @@ fi
 %attr(755,root,root) %{backendsdir}/libtiffdocument.so
 %{backendsdir}/tiffdocument.evince-backend
 %{_datadir}/GConf/gsettings/evince.convert
-%{_datadir}/appdata/evince.appdata.xml
-%{_datadir}/appdata/evince-comicsdocument.metainfo.xml
-%{_datadir}/appdata/evince-tiffdocument.metainfo.xml
+%{_datadir}/metainfo/evince.appdata.xml
+%{_datadir}/metainfo/evince-comicsdocument.metainfo.xml
+%{_datadir}/metainfo/evince-tiffdocument.metainfo.xml
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/%{name}
@@ -354,31 +356,31 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libdjvudocument.so
 %{backendsdir}/djvudocument.evince-backend
-%{_datadir}/appdata/evince-djvudocument.metainfo.xml
+%{_datadir}/metainfo/evince-djvudocument.metainfo.xml
 
 %files backend-dvi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libdvidocument.so
 %{backendsdir}/dvidocument.evince-backend
-%{_datadir}/appdata/evince-dvidocument.metainfo.xml
+%{_datadir}/metainfo/evince-dvidocument.metainfo.xml
 
 %files backend-pdf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libpdfdocument.so
 %{backendsdir}/pdfdocument.evince-backend
-%{_datadir}/appdata/evince-pdfdocument.metainfo.xml
+%{_datadir}/metainfo/evince-pdfdocument.metainfo.xml
 
 %files backend-ps
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libpsdocument.so
 %{backendsdir}/psdocument.evince-backend
-%{_datadir}/appdata/evince-psdocument.metainfo.xml
+%{_datadir}/metainfo/evince-psdocument.metainfo.xml
 
 %files backend-xps
 %defattr(644,root,root,755)
 %attr(755,root,root) %{backendsdir}/libxpsdocument.so
 %{backendsdir}/xpsdocument.evince-backend
-%{_datadir}/appdata/evince-xpsdocument.metainfo.xml
+%{_datadir}/metainfo/evince-xpsdocument.metainfo.xml
 
 %if %{with nautilus}
 %files -n nautilus-extension-evince
