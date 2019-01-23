@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.28.0
+Version:	3.30.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.28/%{name}-%{version}.tar.xz
-# Source0-md5:	96f8372c376e7062bc3b833099f6664f
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.30/%{name}-%{version}.tar.xz
+# Source0-md5:	136eed1e980e91b5e1052d9a906bc2ee
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		http://www.gnome.org/projects/evince/
@@ -31,6 +31,7 @@ BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-desktop-devel >= 3.0
 BuildRequires:	gobject-introspection-devel >= 1.0
 BuildRequires:	gsettings-desktop-schemas-devel
+BuildRequires:	gspell-devel >= 1.6.0
 BuildRequires:	gstreamer-devel >= 1.0
 BuildRequires:	gstreamer-plugins-base-devel >= 1.0
 BuildRequires:	gtk+3-devel >= 3.16.0
@@ -243,6 +244,7 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 %{__automake}
 %configure \
 	BROWSER_PLUGIN_DIR=%{_browserpluginsdir} \
+	--enable-browser-plugin \
 	--enable-comics \
 	--enable-djvu \
 	--enable-dvi \
@@ -250,6 +252,7 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 	--enable-introspection \
 	--enable-nautilus%{!?with_nautilus:=no} \
 	--enable-pdf \
+	--enable-ps \
 	--disable-silent-rules \
 	--disable-static \
 	--enable-t1lib \
@@ -298,7 +301,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS ChangeLog NEWS TODO
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
@@ -311,19 +314,19 @@ fi
 %attr(755,root,root) %{backendsdir}/libtiffdocument.so
 %{backendsdir}/tiffdocument.evince-backend
 %{_datadir}/GConf/gsettings/evince.convert
-%{_datadir}/metainfo/evince.appdata.xml
+%{_datadir}/metainfo/org.gnome.Evince.appdata.xml
 %{_datadir}/metainfo/evince-comicsdocument.metainfo.xml
 %{_datadir}/metainfo/evince-tiffdocument.metainfo.xml
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Evince.gschema.xml
 %{_datadir}/%{name}
 %{_datadir}/thumbnailers/evince.thumbnailer
-%{systemduserunitdir}/evince.service
+%{systemduserunitdir}/org.gnome.Evince.service
 %{_mandir}/man1/evince.1*
-%{_desktopdir}/evince.desktop
-%{_desktopdir}/evince-previewer.desktop
-%{_iconsdir}/hicolor/*x*/apps/evince.png
-%{_iconsdir}/hicolor/symbolic/apps/evince-symbolic.svg
+%{_desktopdir}/org.gnome.Evince.desktop
+%{_desktopdir}/org.gnome.Evince-previewer.desktop
+%{_iconsdir}/hicolor/*x*/apps/org.gnome.Evince.png
+%{_iconsdir}/hicolor/symbolic/apps/org.gnome.Evince-symbolic.svg
 
 %files libs
 %defattr(644,root,root,755)
