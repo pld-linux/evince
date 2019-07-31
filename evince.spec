@@ -10,22 +10,22 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.30.2
+Version:	3.32.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.30/%{name}-%{version}.tar.xz
-# Source0-md5:	136eed1e980e91b5e1052d9a906bc2ee
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.32/%{name}-%{version}.tar.xz
+# Source0-md5:	b7402d14e12ea09da1490f2e624eb6de
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
-URL:		http://www.gnome.org/projects/evince/
+URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	djvulibre-devel >= 3.5.22
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gdk-pixbuf2-devel >= 2.36.5
-BuildRequires:	gettext-tools
+BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	glib2-devel >= 1:2.36.0
 BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-desktop-devel >= 3.0
@@ -34,10 +34,10 @@ BuildRequires:	gsettings-desktop-schemas-devel
 BuildRequires:	gspell-devel >= 1.6.0
 BuildRequires:	gstreamer-devel >= 1.0
 BuildRequires:	gstreamer-plugins-base-devel >= 1.0
-BuildRequires:	gtk+3-devel >= 3.16.0
+BuildRequires:	gtk+3-devel >= 3.22.0
 %{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
-BuildRequires:	intltool >= 0.40.0
 BuildRequires:	kpathsea-devel
+BuildRequires:	libarchive-devel >= 3.2.0
 BuildRequires:	libgxps-devel >= 0.2.1
 BuildRequires:	libsecret-devel >= 0.5
 BuildRequires:	libspectre-devel >= 0.2.0
@@ -51,6 +51,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.33.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	synctex-devel >= 1.19
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xorg-lib-libICE-devel
@@ -66,18 +67,18 @@ Requires:	cairo >= 1.10.0
 Requires:	dconf
 Requires:	gdk-pixbuf2 >= 2.36.5
 Requires:	gsettings-desktop-schemas
+Requires:	gspell >= 1.6.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
+Requires:	libarchive >= 3.2.0
 Requires:	libsecret >= 0.5
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	evince-backend-djvu
 Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
 Suggests:	evince-backend-ps
-Suggests:	gtk+3-cups >= 3.16.0
+Suggests:	gtk+3-cups >= 3.22.0
 Obsoletes:	evince-gtk
-# sr@Latn vs. sr@latin
-Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		backendsdir	%{_libdir}/evince/4/backends
@@ -99,7 +100,7 @@ Summary:	Evince shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone Evince
 Group:		X11/Libraries
 Requires:	glib2 >= 1:2.36.0
-Requires:	gtk+3 >= 3.16.0
+Requires:	gtk+3 >= 3.22.0
 Conflicts:	evince < 3.10.3-2
 
 %description libs
@@ -114,7 +115,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	glib2-devel >= 1:2.36.0
-Requires:	gtk+3-devel >= 3.16.0
+Requires:	gtk+3-devel >= 3.22.0
 
 %description devel
 Header files for Evince.
@@ -236,7 +237,6 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 
 %build
 %{__gtkdocize}
-%{__intltoolize}
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
@@ -325,7 +325,7 @@ fi
 %{_mandir}/man1/evince.1*
 %{_desktopdir}/org.gnome.Evince.desktop
 %{_desktopdir}/org.gnome.Evince-previewer.desktop
-%{_iconsdir}/hicolor/*x*/apps/org.gnome.Evince.png
+%{_iconsdir}/hicolor/scalable/apps/org.gnome.Evince.svg
 %{_iconsdir}/hicolor/symbolic/apps/org.gnome.Evince-symbolic.svg
 
 %files libs
