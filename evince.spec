@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.32.0
+Version:	3.34.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.32/%{name}-%{version}.tar.xz
-# Source0-md5:	b7402d14e12ea09da1490f2e624eb6de
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.34/%{name}-%{version}.tar.xz
+# Source0-md5:	77b38b625008f5940e9bd4b3d38e8cf8
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
@@ -26,7 +26,7 @@ BuildRequires:	djvulibre-devel >= 3.5.22
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gdk-pixbuf2-devel >= 2.36.5
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	glib2-devel >= 1:2.36.0
+BuildRequires:	glib2-devel >= 1:2.38.0
 BuildRequires:	gnome-common >= 2.24.0
 BuildRequires:	gnome-desktop-devel >= 3.0
 BuildRequires:	gobject-introspection-devel >= 1.0
@@ -61,7 +61,7 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.36.0
+Requires(post,postun):	glib2 >= 1:2.38.0
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	cairo >= 1.10.0
 Requires:	dconf
@@ -99,7 +99,7 @@ xpdf jedną prostą aplikacją.
 Summary:	Evince shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone Evince
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.36.0
+Requires:	glib2 >= 1:2.38.0
 Requires:	gtk+3 >= 3.22.0
 Conflicts:	evince < 3.10.3-2
 
@@ -114,7 +114,7 @@ Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.36.0
+Requires:	glib2-devel >= 1:2.38.0
 Requires:	gtk+3-devel >= 3.22.0
 
 %description devel
