@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.34.1
+Version:	3.34.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.34/%{name}-%{version}.tar.xz
-# Source0-md5:	77b38b625008f5940e9bd4b3d38e8cf8
+# Source0-md5:	9e9e82fa8f6045ad7817157d9335d185
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
