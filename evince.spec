@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.36.1
+Version:	3.36.2
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.36/%{name}-%{version}.tar.xz
-# Source0-md5:	0acb95730933fb4b591c73c3fc7fc688
+# Source0-md5:	f8ca7dec5adc4e4e324e859d969bc7b5
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
@@ -51,6 +51,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.33.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	sed >= 4.0
 BuildRequires:	synctex-devel >= 1.19
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
@@ -128,7 +129,7 @@ Summary:	Evince API documentation
 Summary(pl.UTF-8):	Dokumentacja API aplikacji Evince
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -235,7 +236,10 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 %patch0 -p1
 %patch1 -p1
 
+%{__sed} -i -e '/^po\/Makefile.in/d' configure.ac
+
 %build
+%{__gettextize}
 %{__gtkdocize}
 %{__libtoolize}
 %{__aclocal} -I m4
@@ -301,7 +305,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS TODO
+%doc AUTHORS MAINTAINERS NEWS NEWS-security.md NOTES README.md TODO
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
