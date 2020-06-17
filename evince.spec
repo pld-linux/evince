@@ -10,14 +10,15 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.36.4
+Version:	3.36.5
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.36/%{name}-%{version}.tar.xz
-# Source0-md5:	3c2251554872ca6ae88645f951616d99
+# Source0-md5:	5d68c81a3d4c5d27754b97405451f04e
 Patch0:		%{name}-linking.patch
 Patch1:		icon-theme.patch
+Patch2:		%{name}-types.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.10
@@ -51,7 +52,6 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.33.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.592
-BuildRequires:	sed >= 4.0
 BuildRequires:	synctex-devel >= 1.19
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
@@ -235,8 +235,7 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-
-%{__sed} -i -e '/^po\/Makefile.in/d' configure.ac
+%patch2 -p1
 
 %build
 %{__gettextize}
@@ -305,7 +304,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS MAINTAINERS NEWS NEWS-security.md NOTES README.md TODO
+%doc AUTHORS MAINTAINERS NEWS README.md TODO
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
