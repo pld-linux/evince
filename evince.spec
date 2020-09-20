@@ -10,24 +10,20 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.36.7
+Version:	3.38.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.36/%{name}-%{version}.tar.xz
-# Source0-md5:	a7ebf1f76552579be71fc63947a15297
-Patch0:		%{name}-linking.patch
-Patch1:		icon-theme.patch
+Source0:	http://ftp.gnome.org/pub/GNOME/sources/evince/3.38/%{name}-%{version}.tar.xz
+# Source0-md5:	29dd770b8255bdf6343f83419c975905
+Patch0:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
-BuildRequires:	autoconf >= 2.57
-BuildRequires:	automake >= 1:1.10
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	djvulibre-devel >= 3.5.22
 BuildRequires:	docbook-dtd412-xml
-BuildRequires:	gdk-pixbuf2-devel >= 2.36.5
+BuildRequires:	gdk-pixbuf2-devel >= 2.40.0
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	glib2-devel >= 1:2.38.0
-BuildRequires:	gnome-common >= 2.24.0
+BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	gnome-desktop-devel >= 3.0
 BuildRequires:	gobject-introspection-devel >= 1.0
 BuildRequires:	gsettings-desktop-schemas-devel
@@ -42,15 +38,16 @@ BuildRequires:	libgxps-devel >= 0.2.1
 BuildRequires:	libsecret-devel >= 0.5
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtiff-devel >= 3.6
-BuildRequires:	libtool >= 2:2.2
+BuildRequires:	libtiff-devel >= 4
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libxml2-progs >= 1:2.6.31
+BuildRequires:	meson >= 0.50.0
+BuildRequires:	ninja >= 1.5
 %{?with_nautilus:BuildRequires:	nautilus-devel >= 3.0.0}
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.33.0
 BuildRequires:	rpmbuild(find_lang) >= 1.23
-BuildRequires:	rpmbuild(macros) >= 1.592
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	synctex-devel >= 1.19
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
@@ -61,11 +58,11 @@ BuildRequires:	xz
 BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
-Requires(post,postun):	glib2 >= 1:2.38.0
+Requires(post,postun):	glib2 >= 1:2.44.0
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	cairo >= 1.10.0
 Requires:	dconf
-Requires:	gdk-pixbuf2 >= 2.36.5
+Requires:	gdk-pixbuf2 >= 2.40.0
 Requires:	gsettings-desktop-schemas
 Requires:	gspell >= 1.6.0
 Requires:	gtk-update-icon-cache
@@ -99,7 +96,7 @@ xpdf jedną prostą aplikacją.
 Summary:	Evince shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone Evince
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.38.0
+Requires:	glib2 >= 1:2.44.0
 Requires:	gtk+3 >= 3.22.0
 Conflicts:	evince < 3.10.3-2
 
@@ -114,7 +111,7 @@ Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
 Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.38.0
+Requires:	glib2-devel >= 1:2.44.0
 Requires:	gtk+3-devel >= 3.22.0
 
 %description devel
@@ -233,46 +230,21 @@ Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
-%{__gettextize}
-%{__gtkdocize}
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	BROWSER_PLUGIN_DIR=%{_browserpluginsdir} \
-	--enable-browser-plugin \
-	--enable-comics \
-	--enable-djvu \
-	--enable-dvi \
-	%{?with_apidocs:--enable-gtk-doc} \
-	--enable-introspection \
-	--enable-nautilus%{!?with_nautilus:=no} \
-	--enable-pdf \
-	--enable-ps \
-	--disable-silent-rules \
-	--disable-static \
-	--enable-t1lib \
-	--enable-tiff \
-	--with-html-dir=%{_gtkdocdir}
-%{__make}
+%meson build \
+	-Dbrowser_plugin=true \
+	-Dbrowser_plugin_dir=%{_browserpluginsdir} \
+	%{!?with_apidocs:-Dgtk_doc=false} \
+	%{!?with_nautilus:-Dnautilus=false} \
+	-Dps=enabled
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
-%{__rm} $RPM_BUILD_ROOT%{_browserpluginsdir}/*.la
-%{__rm} $RPM_BUILD_ROOT%{backendsdir}/*.la
-%if %{with nautilus}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/nautilus/extensions-3.0/*.la
-%endif
+%ninja_install -C build
 
 %find_lang %{name} --with-gnome
 
@@ -302,7 +274,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc AUTHORS MAINTAINERS NEWS README.md TODO
+%doc AUTHORS MAINTAINERS NEWS NEWS-security.md NOTES README.md TODO
 %attr(755,root,root) %{_bindir}/evince
 %attr(755,root,root) %{_bindir}/evince-previewer
 %attr(755,root,root) %{_bindir}/evince-thumbnailer
@@ -324,6 +296,8 @@ fi
 %{_datadir}/thumbnailers/evince.thumbnailer
 %{systemduserunitdir}/org.gnome.Evince.service
 %{_mandir}/man1/evince.1*
+%{_mandir}/man1/evince-previewer.1*
+%{_mandir}/man1/evince-thumbnailer.1*
 %{_desktopdir}/org.gnome.Evince.desktop
 %{_desktopdir}/org.gnome.Evince-previewer.desktop
 %{_iconsdir}/hicolor/scalable/apps/org.gnome.Evince.svg
