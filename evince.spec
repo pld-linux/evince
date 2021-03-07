@@ -125,7 +125,7 @@ Summary:	Evince API documentation
 Summary(pl.UTF-8):	Dokumentacja API aplikacji Evince
 Group:		Documentation
 Requires:	gtk-doc-common
-%{?noarchpackage}
+BuildArch:	noarch
 
 %description apidocs
 Evince API documentation.
