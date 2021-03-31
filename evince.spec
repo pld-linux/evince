@@ -4,21 +4,22 @@
 #   for same application?
 #
 # Conditional build:
-%bcond_without	apidocs		# disable gtk-doc
+%bcond_without	apidocs		# gtk-doc based API documentation
 %bcond_without	nautilus	# Nautilus extensions
 
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	3.38.2
+Version:	40.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/3.38/%{name}-%{version}.tar.xz
-# Source0-md5:	497863ba00e1b2906c846d6d6c90a8e7
+Source0:	https://download.gnome.org/sources/evince/40/%{name}-%{version}.tar.xz
+# Source0-md5:	89b9c52d6fd03ffb244abc12a989d1ec
 Patch0:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
+BuildRequires:	dbus-devel
 BuildRequires:	djvulibre-devel >= 3.5.22
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gdk-pixbuf2-devel >= 2.40.0
@@ -35,6 +36,7 @@ BuildRequires:	gtk+3-devel >= 3.22.0
 BuildRequires:	kpathsea-devel
 BuildRequires:	libarchive-devel >= 3.2.0
 BuildRequires:	libgxps-devel >= 0.2.1
+BuildRequires:	libhandy1-devel >= 1.0.0
 BuildRequires:	libsecret-devel >= 0.5
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libstdc++-devel
@@ -43,9 +45,10 @@ BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libxml2-progs >= 1:2.6.31
 BuildRequires:	meson >= 0.50.0
 BuildRequires:	ninja >= 1.5
-%{?with_nautilus:BuildRequires:	nautilus-devel >= 3.0.0}
+%{?with_nautilus:BuildRequires:	nautilus-devel >= 3.28.0}
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.33.0
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	synctex-devel >= 1.19
@@ -68,6 +71,7 @@ Requires:	gspell >= 1.6.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
 Requires:	libarchive >= 3.2.0
+Requires:	libhandy1 >= 1.0.0
 Requires:	libsecret >= 0.5
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	evince-backend-djvu
@@ -75,7 +79,7 @@ Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
 Suggests:	evince-backend-ps
 Suggests:	gtk+3-cups >= 3.22.0
-Obsoletes:	evince-gtk
+Obsoletes:	evince-gtk < 3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		backendsdir	%{_libdir}/evince/4/backends
@@ -138,7 +142,7 @@ Summary:	Evince extension for Nautilus
 Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus >= 3.0.0
+Requires:	nautilus >= 3.28.0
 
 %description -n nautilus-extension-evince
 This extension shows Evince document properties in Nautilus.
