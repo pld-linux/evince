@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	40.4
+Version:	41.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/40/%{name}-%{version}.tar.xz
-# Source0-md5:	bf78a8e8c384bbd2780b7be0ac917e79
+Source0:	https://download.gnome.org/sources/evince/41/%{name}-%{version}.tar.xz
+# Source0-md5:	d846e883ae1cafe53ae30b0223b2b18c
 Patch0:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
@@ -43,11 +43,11 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel >= 4
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libxml2-progs >= 1:2.6.31
-BuildRequires:	meson >= 0.50.0
+BuildRequires:	meson >= 0.53.0
 BuildRequires:	ninja >= 1.5
 %{?with_nautilus:BuildRequires:	nautilus-devel >= 3.28.0}
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.33.0
+BuildRequires:	poppler-glib-devel >= 0.86.0
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.752
@@ -79,6 +79,7 @@ Suggests:	evince-backend-dvi
 Suggests:	evince-backend-pdf
 Suggests:	evince-backend-ps
 Suggests:	gtk+3-cups >= 3.22.0
+Obsoletes:	browser-plugin-evince < 41
 Obsoletes:	evince-gtk < 3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -182,7 +183,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PDF przy użyciu Evince
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.6.31
-Requires:	poppler-glib >= 0.24.0
+Requires:	poppler-glib >= 0.86.0
 
 %description backend-pdf
 View PDF documents with Evince.
@@ -216,27 +217,12 @@ View XPS documents with Evince.
 %description backend-xps -l pl.UTF-8
 Przeglądanie dokumentów XPS przy użyciu Evince.
 
-%package -n browser-plugin-evince
-Summary:	Evince browser plugin
-Summary(pl.UTF-8):	Wtyczka Evince dla przegądarek WWW
-Group:		X11/Applications/Graphics
-Requires:	%{name} = %{version}-%{release}
-Requires:	browser-plugins >= 2.0
-
-%description -n browser-plugin-evince
-Evince plugin for Mozilla-compatible web browsers.
-
-%description -n browser-plugin-evince -l pl.UTF-8
-Wtyczka Evince dla przegądarek WWW zgodnych z Mozillą.
-
 %prep
 %setup -q
 %patch0 -p1
 
 %build
 %meson build \
-	-Dbrowser_plugin=true \
-	-Dbrowser_plugin_dir=%{_browserpluginsdir} \
 	%{!?with_apidocs:-Dgtk_doc=false} \
 	%{!?with_nautilus:-Dnautilus=false} \
 	-Dps=enabled
@@ -265,14 +251,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	libs -p /sbin/ldconfig
 %postun	libs -p /sbin/ldconfig
-
-%post -n browser-plugin-evince
-%update_browser_plugins
-
-%postun -n browser-plugin-evince
-if [ "$1" = 0 ]; then
-	%update_browser_plugins
-fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -367,7 +345,3 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/nautilus/extensions-3.0/libevince-properties-page.so
 %endif
-
-%files -n browser-plugin-evince
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_browserpluginsdir}/libevbrowserplugin.so
