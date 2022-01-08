@@ -11,7 +11,7 @@ Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
 Version:	41.3
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	https://download.gnome.org/sources/evince/41/%{name}-%{version}.tar.xz
@@ -50,7 +50,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.86.0
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.011
 BuildRequires:	synctex-devel >= 1.19
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
@@ -62,6 +62,7 @@ BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.44.0
+Requires(post,preun):	systemd-units >= 250.1
 Requires:	%{name}-libs = %{version}-%{release}
 Requires:	cairo >= 1.10.0
 Requires:	dconf
@@ -73,6 +74,7 @@ Requires:	hicolor-icon-theme
 Requires:	libarchive >= 3.2.0
 Requires:	libhandy1 >= 1.0.0
 Requires:	libsecret >= 0.5
+Requires:	systemd-units >= 250.1
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	evince-backend-djvu
 Suggests:	evince-backend-dvi
@@ -243,6 +245,10 @@ rm -rf $RPM_BUILD_ROOT
 %update_desktop_database_post
 %update_icon_cache hicolor
 %glib_compile_schemas
+%systemd_user_post org.gnome.Evince.service
+
+%preun
+%systemd_user_preun org.gnome.Evince.service
 
 %postun
 %update_desktop_database_postun
