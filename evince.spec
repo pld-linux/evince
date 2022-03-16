@@ -10,13 +10,14 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	41.3
-Release:	3
+Version:	41.4
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	https://download.gnome.org/sources/evince/41/%{name}-%{version}.tar.xz
-# Source0-md5:	15518c459805277b90bad34e7d4551f6
+# Source0-md5:	920d88772c8e1a91027aec643258db4e
 Patch0:		icon-theme.patch
+Patch1:		%{name}-meson.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	dbus-devel
@@ -220,6 +221,7 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %meson build \
