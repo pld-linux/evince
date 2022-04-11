@@ -10,14 +10,13 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	41.4
+Version:	42.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/41/%{name}-%{version}.tar.xz
-# Source0-md5:	920d88772c8e1a91027aec643258db4e
+Source0:	https://download.gnome.org/sources/evince/42/%{name}-%{version}.tar.xz
+# Source0-md5:	6d5410e00aa9219c97eb3fc6f40a2630
 Patch0:		icon-theme.patch
-Patch1:		%{name}-meson.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	dbus-devel
@@ -33,11 +32,11 @@ BuildRequires:	gspell-devel >= 1.6.0
 BuildRequires:	gstreamer-devel >= 1.0
 BuildRequires:	gstreamer-plugins-base-devel >= 1.0
 BuildRequires:	gtk+3-devel >= 3.22.0
-%{?with_apidocs:BuildRequires:	gtk-doc >= 1.13}
+%{?with_apidocs:BuildRequires:	gi-docgen >= 2021.1}
 BuildRequires:	kpathsea-devel
-BuildRequires:	libarchive-devel >= 3.2.0
+BuildRequires:	libarchive-devel >= 3.6.0
 BuildRequires:	libgxps-devel >= 0.2.1
-BuildRequires:	libhandy1-devel >= 1.0.0
+BuildRequires:	libhandy1-devel >= 1.5.0
 BuildRequires:	libsecret-devel >= 0.5
 BuildRequires:	libspectre-devel >= 0.2.0
 BuildRequires:	libstdc++-devel
@@ -48,7 +47,7 @@ BuildRequires:	meson >= 0.53.0
 BuildRequires:	ninja >= 1.5
 %{?with_nautilus:BuildRequires:	nautilus-devel >= 3.28.0}
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 0.86.0
+BuildRequires:	poppler-glib-devel >= 22.02.0
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 1.752
@@ -71,8 +70,8 @@ Requires:	gsettings-desktop-schemas
 Requires:	gspell >= 1.6.0
 Requires:	gtk-update-icon-cache
 Requires:	hicolor-icon-theme
-Requires:	libarchive >= 3.2.0
-Requires:	libhandy1 >= 1.0.0
+Requires:	libarchive >= 3.6.0
+Requires:	libhandy1 >= 1.5.0
 Requires:	libsecret >= 0.5
 Requires:	xorg-lib-libSM >= 1.0.0
 Suggests:	evince-backend-djvu
@@ -184,7 +183,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PDF przy użyciu Evince
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.6.31
-Requires:	poppler-glib >= 0.86.0
+Requires:	poppler-glib >= 22.02.0
 
 %description backend-pdf
 View PDF documents with Evince.
@@ -221,7 +220,6 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %meson build \
@@ -235,6 +233,12 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
+
+%if %{with apidocs}
+# FIXME: where to package gi-docgen generated docs?
+install -d $RPM_BUILD_ROOT%{_gtkdocdir}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/libev* $RPM_BUILD_ROOT%{_gtkdocdir}
+%endif
 
 %find_lang %{name} --with-gnome
 
@@ -307,9 +311,8 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with apidocs}
 %files apidocs
 %defattr(644,root,root,755)
-%{_gtkdocdir}/evince
-%{_gtkdocdir}/libevdocument-3.0
-%{_gtkdocdir}/libevview-3.0
+%{_gtkdocdir}/libevdocument
+%{_gtkdocdir}/libevview
 %endif
 
 %files backend-djvu

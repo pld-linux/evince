@@ -14,14 +14,14 @@
  
    # *** Nautilus property page build ***
    enable_nautilus = get_option('nautilus')
---- evince-3.38.0/shell/meson.build.orig	2020-09-12 21:36:51.862926000 +0200
-+++ evince-3.38.0/shell/meson.build	2020-09-20 10:41:51.863522110 +0200
-@@ -92,8 +92,6 @@
+--- evince-42.1/shell/meson.build.orig	2022-04-09 07:55:47.659825723 +0200
++++ evince-42.1/shell/meson.build	2022-04-09 08:05:33.756650564 +0200
+@@ -80,8 +80,6 @@ if ev_platform == 'win32'
      output: resource,
      command: [find_program('windres'), '@INPUT@', '-I', data_dir, '@OUTPUT@'],
    )
 -else
--  deps += adwaita_icon_theme_dep
+-  evince_deps += adwaita_icon_theme_dep
  endif
  
  if enable_dbus
