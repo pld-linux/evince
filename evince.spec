@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	42.4
+Version:	43.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/42/%{name}-%{version}.tar.xz
-# Source0-md5:	2f1ba23376be7736c06af80b146cfca8
+Source0:	https://download.gnome.org/sources/evince/43/%{name}-%{version}.tar.xz
+# Source0-md5:	8b50f6b1fbd707656452a759bd7364e7
 Patch0:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
@@ -43,9 +43,10 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel >= 4
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libxml2-progs >= 1:2.6.31
-BuildRequires:	meson >= 0.53.0
+BuildRequires:	meson >= 0.57.0
 BuildRequires:	ninja >= 1.5
-%{?with_nautilus:BuildRequires:	nautilus-devel >= 3.28.0}
+%{?with_nautilus:BuildRequires:	nautilus3-devel >= 3.28.0}
+%{?with_nautilus:BuildRequires:	nautilus3-devel < 42.20}
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 22.02.0
 BuildRequires:	rpm-build >= 4.6
@@ -138,18 +139,19 @@ Evince API documentation.
 %description apidocs -l pl.UTF-8
 Dokumentacja API aplikacji Evince.
 
-%package -n nautilus-extension-evince
-Summary:	Evince extension for Nautilus
-Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa
+%package -n nautilus3-extension-evince
+Summary:	Evince extension for Nautilus 3
+Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa 3
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus >= 3.28.0
+Requires:	nautilus3 >= 3.28.0
+Obsoletes:	nautilus-extension-evince < 43
 
-%description -n nautilus-extension-evince
-This extension shows Evince document properties in Nautilus.
+%description -n nautilus3-extension-evince
+This extension shows Evince document properties in Nautilus 3.
 
-%description -n nautilus-extension-evince -l pl.UTF-8
-To rozszerzenie pokazuje właściwości dokumentu Evince w Nautilusie.
+%description -n nautilus3-extension-evince -l pl.UTF-8
+To rozszerzenie pokazuje właściwości dokumentu Evince w Nautilusie 3.
 
 %package backend-djvu
 Summary:	View DjVu documents with Evince
@@ -346,7 +348,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/metainfo/evince-xpsdocument.metainfo.xml
 
 %if %{with nautilus}
-%files -n nautilus-extension-evince
+%files -n nautilus3-extension-evince
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/nautilus/extensions-3.0/libevince-properties-page.so
 %endif
