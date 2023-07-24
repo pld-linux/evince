@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	43.2
-Release:	2
+Version:	44.3
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/43/%{name}-%{version}.tar.xz
-# Source0-md5:	6ccff0dd117fbb12099ce25c396c6967
+Source0:	https://download.gnome.org/sources/evince/44/%{name}-%{version}.tar.xz
+# Source0-md5:	a5ea6d19f083f41086ee363caefaa14f
 Patch0:		icon-theme.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
@@ -43,7 +43,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libtiff-devel >= 4
 BuildRequires:	libxml2-devel >= 1:2.6.31
 BuildRequires:	libxml2-progs >= 1:2.6.31
-BuildRequires:	meson >= 0.57.0
+BuildRequires:	meson >= 0.59.0
 BuildRequires:	ninja >= 1.5
 %{?with_nautilus:BuildRequires:	nautilus3-devel >= 3.28.0}
 %{?with_nautilus:BuildRequires:	nautilus3-devel < 42.20}
