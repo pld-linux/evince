@@ -4,7 +4,7 @@
 #   for same application?
 #
 # Conditional build:
-%bcond_without	apidocs		# gtk-doc based API documentation
+%bcond_without	apidocs		# gi-docgen based API documentation
 %bcond_without	nautilus	# Nautilus extensions
 
 Summary:	Document viewer for multiple document formats
@@ -130,7 +130,6 @@ Pliki nagłówkowe Evince.
 Summary:	Evince API documentation
 Summary(pl.UTF-8):	Dokumentacja API aplikacji Evince
 Group:		Documentation
-Requires:	gtk-doc-common
 BuildArch:	noarch
 
 %description apidocs
