@@ -10,13 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	44.3
+Version:	45.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/44/%{name}-%{version}.tar.xz
-# Source0-md5:	a5ea6d19f083f41086ee363caefaa14f
-Patch0:		icon-theme.patch
+Source0:	https://download.gnome.org/sources/evince/45/%{name}-%{version}.tar.xz
+# Source0-md5:	494cdeef8898a2479aa86f8def7a63bc
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	dbus-devel
@@ -48,7 +47,7 @@ BuildRequires:	ninja >= 1.5
 %{?with_nautilus:BuildRequires:	nautilus3-devel >= 3.28.0}
 %{?with_nautilus:BuildRequires:	nautilus3-devel < 42.20}
 BuildRequires:	pkgconfig
-BuildRequires:	poppler-glib-devel >= 22.02.0
+BuildRequires:	poppler-glib-devel >= 22.05.0
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
 BuildRequires:	rpmbuild(macros) >= 2.029
@@ -184,7 +183,7 @@ Summary(pl.UTF-8):	Przeglądanie dokumentów PDF przy użyciu Evince
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
 Requires:	libxml2 >= 1:2.6.31
-Requires:	poppler-glib >= 22.02.0
+Requires:	poppler-glib >= 22.05.0
 
 %description backend-pdf
 View PDF documents with Evince.
@@ -220,7 +219,6 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %meson build \
@@ -275,8 +273,7 @@ rm -rf $RPM_BUILD_ROOT
 %{backendsdir}/comicsdocument.evince-backend
 %attr(755,root,root) %{backendsdir}/libtiffdocument.so
 %{backendsdir}/tiffdocument.evince-backend
-%{_datadir}/GConf/gsettings/evince.convert
-%{_datadir}/metainfo/org.gnome.Evince.appdata.xml
+%{_datadir}/metainfo/org.gnome.Evince.metainfo.xml
 %{_datadir}/metainfo/evince-comicsdocument.metainfo.xml
 %{_datadir}/metainfo/evince-tiffdocument.metainfo.xml
 %{_datadir}/dbus-1/services/org.gnome.evince.Daemon.service
