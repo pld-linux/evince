@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	46.3.1
-Release:	2
+Version:	48.0
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
-Source0:	https://download.gnome.org/sources/evince/46/%{name}-%{version}.tar.xz
-# Source0-md5:	e017e3544751c2442020f4d10a39e24d
+Source0:	https://download.gnome.org/sources/evince/48/%{name}-%{version}.tar.xz
+# Source0-md5:	ffbe9e52580033231855478a18b90dc5
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	dbus-devel
@@ -50,7 +50,7 @@ BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 22.05.0
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(find_lang) >= 1.23
-BuildRequires:	rpmbuild(macros) >= 2.029
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	synctex-devel >= 1.19
 BuildRequires:	t1lib-devel
 BuildRequires:	tar >= 1:1.22
@@ -221,17 +221,28 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 %setup -q
 
 %build
-%meson build \
+%meson \
+	-Dcomics=enabled \
+	-Ddjvu=enabled \
+	-Ddvi=enabled \
+	-Dgspell=enabled \
 	%{!?with_apidocs:-Dgtk_doc=false} \
+	-Dgtk_unix_print=enabled \
+	-Dinternal_synctex=false \
+	-Dkeyring=enabled \
+	-Dmultimedia=enabled \
 	%{?with_nautilus:-Dnautilus=true} \
-	-Dps=enabled
+	-Dps=enabled \
+	-Dthumbnail_cache=enabled \
+	-Dtiff=enabled \
+	-Dxps=enabled
 
-%ninja_build -C build
+%meson_build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with apidocs}
 install -d $RPM_BUILD_ROOT%{_gidocdir}
