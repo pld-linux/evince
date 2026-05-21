@@ -10,16 +10,16 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	48.1
-Release:	4
+Version:	48.4
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	https://download.gnome.org/sources/evince/48/%{name}-%{version}.tar.xz
-# Source0-md5:	a29c7fcd047073d69d910778b29bde14
+# Source0-md5:	5df36228e83ac93a5860f013af50c5c8
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	dbus-devel
-BuildRequires:	djvulibre-devel >= 3.5.22
+BuildRequires:	djvulibre-devel >= 3.5.29
 BuildRequires:	docbook-dtd412-xml
 BuildRequires:	gdk-pixbuf2-devel >= 2.40.0
 BuildRequires:	gettext-tools >= 0.19.8
@@ -156,7 +156,7 @@ Summary:	View DjVu documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów DjVu przy użyciu Evince
 Group:		X11/Applications
 Requires:	%{name} = %{version}-%{release}
-Requires:	djvulibre >= 3.5.22
+Requires:	djvulibre >= 3.5.29
 
 %description backend-djvu
 View DjVu documents with Evince.
@@ -280,9 +280,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/evince
 %dir %{_libdir}/evince/4
 %dir %{backendsdir}
-%attr(755,root,root) %{backendsdir}/libcomicsdocument.so
+%{backendsdir}/libcomicsdocument.so
 %{backendsdir}/comicsdocument.evince-backend
-%attr(755,root,root) %{backendsdir}/libtiffdocument.so
+%{backendsdir}/libtiffdocument.so
 %{backendsdir}/tiffdocument.evince-backend
 %{_datadir}/metainfo/org.gnome.Evince.metainfo.xml
 %{_datadir}/metainfo/evince-comicsdocument.metainfo.xml
@@ -302,17 +302,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libevdocument3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevdocument3.so.4
-%attr(755,root,root) %{_libdir}/libevview3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libevview3.so.3
+%{_libdir}/libevdocument3.so.*.*.*
+%ghost %{_libdir}/libevdocument3.so.4
+%{_libdir}/libevview3.so.*.*.*
+%ghost %{_libdir}/libevview3.so.3
 %{_libdir}/girepository-1.0/EvinceDocument-3.0.typelib
 %{_libdir}/girepository-1.0/EvinceView-3.0.typelib
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libevdocument3.so
-%attr(755,root,root) %{_libdir}/libevview3.so
+%{_libdir}/libevdocument3.so
+%{_libdir}/libevview3.so
 %{_datadir}/gir-1.0/EvinceDocument-3.0.gir
 %{_datadir}/gir-1.0/EvinceView-3.0.gir
 %{_includedir}/evince
@@ -328,36 +328,36 @@ rm -rf $RPM_BUILD_ROOT
 
 %files backend-djvu
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libdjvudocument.so
+%{backendsdir}/libdjvudocument.so
 %{backendsdir}/djvudocument.evince-backend
 %{_datadir}/metainfo/evince-djvudocument.metainfo.xml
 
 %files backend-dvi
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libdvidocument.so
+%{backendsdir}/libdvidocument.so
 %{backendsdir}/dvidocument.evince-backend
 %{_datadir}/metainfo/evince-dvidocument.metainfo.xml
 
 %files backend-pdf
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libpdfdocument.so
+%{backendsdir}/libpdfdocument.so
 %{backendsdir}/pdfdocument.evince-backend
 %{_datadir}/metainfo/evince-pdfdocument.metainfo.xml
 
 %files backend-ps
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libpsdocument.so
+%{backendsdir}/libpsdocument.so
 %{backendsdir}/psdocument.evince-backend
 %{_datadir}/metainfo/evince-psdocument.metainfo.xml
 
 %files backend-xps
 %defattr(644,root,root,755)
-%attr(755,root,root) %{backendsdir}/libxpsdocument.so
+%{backendsdir}/libxpsdocument.so
 %{backendsdir}/xpsdocument.evince-backend
 %{_datadir}/metainfo/evince-xpsdocument.metainfo.xml
 
 %if %{with nautilus}
 %files -n nautilus3-extension-evince
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/nautilus/extensions-3.0/libevince-properties-page.so
+%{_libdir}/nautilus/extensions-3.0/libevince-properties-page.so
 %endif
