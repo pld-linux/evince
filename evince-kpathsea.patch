@@ -1,0 +1,11 @@
+--- evince-48.4/backend/dvi/mdvi-lib/private.h.orig	2026-05-19 19:34:50.000000000 +0200
++++ evince-48.4/backend/dvi/mdvi-lib/private.h	2026-07-12 14:41:42.730098908 +0200
+@@ -32,6 +32,8 @@
+ #  endif
+ #endif
+ 
++#include <kpathsea/config.h>
++#include <kpathsea/c-auto.h>
+ #include <kpathsea/debug.h>
+ #include <kpathsea/tex-file.h>
+ #include <kpathsea/tex-glyph.h>

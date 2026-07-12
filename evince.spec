@@ -16,6 +16,7 @@ License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	https://download.gnome.org/sources/evince/48/%{name}-%{version}.tar.xz
 # Source0-md5:	5df36228e83ac93a5860f013af50c5c8
+Patch0:		%{name}-kpathsea.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	dbus-devel
@@ -219,6 +220,7 @@ Przeglądanie dokumentów XPS przy użyciu Evince.
 
 %prep
 %setup -q
+%patch -P0 -p1
 
 %build
 %meson \
