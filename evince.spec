@@ -10,12 +10,12 @@
 Summary:	Document viewer for multiple document formats
 Summary(pl.UTF-8):	Przeglądarka dokumentów w wielu formatach
 Name:		evince
-Version:	48.4
-Release:	2
+Version:	48.5
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Graphics
 Source0:	https://download.gnome.org/sources/evince/48/%{name}-%{version}.tar.xz
-# Source0-md5:	5df36228e83ac93a5860f013af50c5c8
+# Source0-md5:	d9a8d24aec36f837b123cd946880db19
 Patch0:		%{name}-kpathsea.patch
 URL:		https://wiki.gnome.org/Apps/Evince
 BuildRequires:	cairo-devel >= 1.10.0
@@ -63,23 +63,23 @@ BuildRequires:	yelp-tools
 BuildRequires:	zlib-devel
 Requires(post,postun):	desktop-file-utils
 Requires(post,postun):	glib2 >= 1:2.44.0
-Requires:	%{name}-libs = %{version}-%{release}
-Requires:	cairo >= 1.10.0
+Requires(post,postun):	gtk-update-icon-cache
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	cairo%{?_isa} >= 1.10.0
 Requires:	dconf
-Requires:	gdk-pixbuf2 >= 2.40.0
+Requires:	gdk-pixbuf2%{?_isa} >= 2.40.0
 Requires:	gsettings-desktop-schemas
-Requires:	gspell >= 1.6.0
-Requires:	gtk-update-icon-cache
+Requires:	gspell%{?_isa} >= 1.6.0
 Requires:	hicolor-icon-theme
-Requires:	libarchive >= 3.6.0
-Requires:	libhandy1 >= 1.5.0
-Requires:	libsecret >= 0.5
-Requires:	xorg-lib-libSM >= 1.0.0
-Suggests:	evince-backend-djvu
-Suggests:	evince-backend-dvi
-Suggests:	evince-backend-pdf
-Suggests:	evince-backend-ps
-Suggests:	gtk+3-cups >= 3.22.0
+Requires:	libarchive%{?_isa} >= 3.6.0
+Requires:	libhandy1%{?_isa} >= 1.5.0
+Requires:	libsecret%{?_isa} >= 0.5
+Requires:	xorg-lib-libSM%{?_isa} >= 1.0.0
+Suggests:	evince-backend-djvu%{?_isa}
+Suggests:	evince-backend-dvi%{?_isa}
+Suggests:	evince-backend-pdf%{?_isa}
+Suggests:	evince-backend-ps%{?_isa}
+Suggests:	gtk+3-cups%{?_isa} >= 3.22.0
 Obsoletes:	browser-plugin-evince < 41
 Obsoletes:	evince-gtk < 3.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -102,8 +102,8 @@ xpdf jedną prostą aplikacją.
 Summary:	Evince shared libraries
 Summary(pl.UTF-8):	Biblioteki współdzielone Evince
 Group:		X11/Libraries
-Requires:	glib2 >= 1:2.44.0
-Requires:	gtk+3 >= 3.22.0
+Requires:	glib2%{?_isa} >= 1:2.44.0
+Requires:	gtk+3%{?_isa} >= 3.22.0
 Conflicts:	evince < 3.10.3-2
 
 %description libs
@@ -116,9 +116,9 @@ Biblioteki współdzielone Evince.
 Summary:	Header files for Evince
 Summary(pl.UTF-8):	Pliki nagłówkowe Evince
 Group:		X11/Development/Libraries
-Requires:	%{name}-libs = %{version}-%{release}
-Requires:	glib2-devel >= 1:2.44.0
-Requires:	gtk+3-devel >= 3.22.0
+Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
+Requires:	glib2-devel%{?_isa} >= 1:2.44.0
+Requires:	gtk+3-devel%{?_isa} >= 3.22.0
 
 %description devel
 Header files for Evince.
@@ -142,8 +142,8 @@ Dokumentacja API aplikacji Evince.
 Summary:	Evince extension for Nautilus 3
 Summary(pl.UTF-8):	Rozszerzenie Evince dla Nautilusa 3
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	nautilus3 >= 3.28.0
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	nautilus3%{?_isa} >= 3.28.0
 Obsoletes:	nautilus-extension-evince < 43
 
 %description -n nautilus3-extension-evince
@@ -156,8 +156,8 @@ To rozszerzenie pokazuje właściwości dokumentu Evince w Nautilusie 3.
 Summary:	View DjVu documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów DjVu przy użyciu Evince
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	djvulibre >= 3.5.29
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	djvulibre%{?_isa} >= 3.5.29
 
 %description backend-djvu
 View DjVu documents with Evince.
@@ -169,8 +169,8 @@ Przeglądanie dokumentów DjVu przy użyciu Evince.
 Summary:	View DVI documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów DVI przy użyciu Evince
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	libspectre >= 0.2.0
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libspectre%{?_isa} >= 0.2.0
 
 %description backend-dvi
 View DVI documents with Evince.
@@ -182,9 +182,9 @@ Przeglądanie dokumentów DVI przy użyciu Evince.
 Summary:	View PDF documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów PDF przy użyciu Evince
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	libxml2 >= 1:2.6.31
-Requires:	poppler-glib >= 22.05.0
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libxml2%{?_isa} >= 1:2.6.31
+Requires:	poppler-glib%{?_isa} >= 22.05.0
 
 %description backend-pdf
 View PDF documents with Evince.
@@ -196,8 +196,8 @@ Przeglądanie dokumentów PDF przy użyciu Evince.
 Summary:	View PostScript documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów PostScript przy użyciu Evince
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	libspectre >= 0.2.0
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libspectre%{?_isa} >= 0.2.0
 
 %description backend-ps
 View PostScript documents with Evince.
@@ -209,8 +209,8 @@ Przeglądanie dokumentów PostScript przy użyciu Evince.
 Summary:	View XPS documents with Evince
 Summary(pl.UTF-8):	Przeglądanie dokumentów XPS przy użyciu Evince
 Group:		X11/Applications
-Requires:	%{name} = %{version}-%{release}
-Requires:	libgxps >= 0.2.1
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	libgxps%{?_isa} >= 0.2.1
 
 %description backend-xps
 View XPS documents with Evince.
